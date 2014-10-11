@@ -13,7 +13,7 @@ import javax.jws.Oneway;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import uy.edu.ort.persistencia.UsuarioSBLocal;
-import uy.edu.ort.entidades.UsuarioEntity;
+import uy.edu.ort.dominio.Usuario;
 /**
  *
  * @author Richard
@@ -26,17 +26,17 @@ public class UsuarioSB {
     
     @WebMethod(operationName="alta")
     @Oneway
-    public void alta(@WebParam(name="usuario") UsuarioEntity usuario){
+    public void alta(@WebParam(name="usuario") Usuario usuario){
         ejbUsuario.alta(usuario);
     }
     @WebMethod(operationName="eliminar")
     @Oneway
-    public void eliminar(@WebParam(name="usuario") UsuarioEntity usuario){
+    public void eliminar(@WebParam(name="usuario") Usuario usuario){
         ejbUsuario.eliminar(usuario);
     }
     @WebMethod(operationName="modificar")
     @Oneway
-    public void modificar(@WebParam(name="usuario") UsuarioEntity usuario){
+    public void modificar(@WebParam(name="usuario") Usuario usuario){
         ejbUsuario.modificar(usuario);
     }
 }

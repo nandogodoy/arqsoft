@@ -7,15 +7,16 @@
 package uy.edu.ort.persistencia;
 
 import javax.ejb.Local;
+import uy.edu.ort.dominio.Receta;
 import uy.edu.ort.entidades.RecetaEntity;
-
 /**
  *
  * @author Richard
  */
 @Local
 public interface RecetaSBLocal {
-    public void alta(RecetaEntity receta);
-    public void modificar(RecetaEntity receta);
-    public void eliminar(RecetaEntity receta);
+    public void alta(Receta receta);
+    public void modificar(Receta receta);
+    public void eliminar(Receta receta);
+    public RecetaEntity obtenerPorNombre(String nombre);
 }

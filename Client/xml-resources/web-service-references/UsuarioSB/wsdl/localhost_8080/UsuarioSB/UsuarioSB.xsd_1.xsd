@@ -8,49 +8,48 @@
 
 <xs:complexType name="alta">
 <xs:sequence>
-<xs:element name="usuario" type="tns:usuarioEntity" minOccurs="0"/>
+<xs:element name="usuario" type="tns:usuario" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="usuarioEntity">
+<xs:complexType name="usuario">
 <xs:sequence>
-<xs:element name="id" type="xs:long" minOccurs="0"/>
+<xs:element name="email" type="xs:string" minOccurs="0"/>
 <xs:element name="nombre" type="xs:string" minOccurs="0"/>
-<xs:element name="recetas" type="tns:recetaEntity" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="password" type="xs:string" minOccurs="0"/>
+<xs:element name="recetas" type="tns:receta" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
 <xs:element name="valoracion" type="xs:float"/>
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="recetaEntity">
+<xs:complexType name="receta">
 <xs:sequence>
-<xs:element name="cuarto" type="tns:ingredienteEntity" minOccurs="0"/>
-<xs:element name="id" type="xs:long" minOccurs="0"/>
+<xs:element name="cuarto" type="tns:ingrediente" minOccurs="0"/>
 <xs:element name="nombre" type="xs:string" minOccurs="0"/>
-<xs:element name="principal" type="tns:ingredienteEntity" minOccurs="0"/>
+<xs:element name="principal" type="tns:ingrediente" minOccurs="0"/>
 <xs:element name="procedimiento" type="xs:string" minOccurs="0"/>
-<xs:element name="segundo" type="tns:ingredienteEntity" minOccurs="0"/>
-<xs:element name="tercero" type="tns:ingredienteEntity" minOccurs="0"/>
-<xs:element name="usuario" type="tns:usuarioEntity" minOccurs="0"/>
+<xs:element name="segundo" type="tns:ingrediente" minOccurs="0"/>
+<xs:element name="tercero" type="tns:ingrediente" minOccurs="0"/>
+<xs:element name="usuario" type="tns:usuario" minOccurs="0"/>
 <xs:element name="valoracion" type="xs:float"/>
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="ingredienteEntity">
+<xs:complexType name="ingrediente">
 <xs:sequence>
-<xs:element name="id" type="xs:long" minOccurs="0"/>
 <xs:element name="nombre" type="xs:string" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 
 <xs:complexType name="modificar">
 <xs:sequence>
-<xs:element name="usuario" type="tns:usuarioEntity" minOccurs="0"/>
+<xs:element name="usuario" type="tns:usuario" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 
 <xs:complexType name="eliminar">
 <xs:sequence>
-<xs:element name="usuario" type="tns:usuarioEntity" minOccurs="0"/>
+<xs:element name="usuario" type="tns:usuario" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 </xs:schema>

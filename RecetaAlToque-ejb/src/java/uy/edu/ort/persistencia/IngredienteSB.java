@@ -9,7 +9,9 @@ package uy.edu.ort.persistencia;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import uy.edu.ort.entidades.IngredienteEntity;
+import uy.edu.ort.dominio.Ingrediente;
 
 /**
  *
@@ -22,24 +24,42 @@ public class IngredienteSB implements IngredienteSBLocal {
     EntityManager em;
     
     @Override
-    public void alta(IngredienteEntity ingrediente) {
-        if(!em.contains(ingrediente)){
-        em.persist(ingrediente);
+    public void alta(Ingrediente ingrediente) {
+        IngredienteEntity entity= new IngredienteEntity();
+        entity.setNombre(ingrediente.getNombre());
+        if(!em.contains(entity)){
+            em.persist(entity);
         }
     }
 
     @Override
-    public void modificar(IngredienteEntity ingrediente) {
-        if(em.contains(ingrediente)){
-            em.merge(ingrediente);
+    public void modificar(Ingrediente ingrediente) {
+        IngredienteEntity entity= new IngredienteEntity();
+        entity.setNombre(ingrediente.getNombre());
+        
+        if(em.contains(entity)){
+            em.merge(entity);
         }
     }
 
     @Override
-    public void eliminar(IngredienteEntity ingrediente) {
-        if(em.contains(ingrediente)){
-            em.remove(ingrediente);
+    public void eliminar(Ingrediente ingrediente) {
+        IngredienteEntity entity= new IngredienteEntity();
+        entity.setNombre(ingrediente.getNombre());
+        if(em.contains(entity)){
+            em.remove(entity);
         }
+    }
+    @Override
+    public IngredienteEntity obtenerPorNombre(String nombre){
+        TypedQuery<IngredienteEntity> query= em.createNamedQuery("IngredienteEntity.findByNombre", IngredienteEntity.class);
+        query.setParameter("nombre", nombre);
+        try{
+            IngredienteEntity ingrediente= query.getSingleResult();
+            return ingrediente;
+        }
+        catch(Exception e){}
+        return null;
     }
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")

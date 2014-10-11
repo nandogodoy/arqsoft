@@ -12,6 +12,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
@@ -38,20 +39,20 @@ public class RecetaEntity implements Serializable {
     @Column (name="procedimiento")
     private String procedimiento;
     
-    @Column (name="principal")
-    @OneToOne (mappedBy="IngredienteEntity")
+    @JoinColumn (name="principal")
+    @OneToOne 
     private IngredienteEntity principal;
     
-    @Column (name="segundo")
-    @OneToOne(mappedBy="IngredienteEntity")
+    @JoinColumn (name="segundo")
+    @OneToOne
     private IngredienteEntity segundo;
     
-    @Column (name="tercero")
-    @OneToOne(mappedBy="IngredienteEntity")
+    @JoinColumn (name="tercero")
+    @OneToOne
     private IngredienteEntity tercero;
     
-    @Column (name="cuarto")
-    @OneToOne(mappedBy="IngredienteEntity")
+    @JoinColumn (name="cuarto")
+    @OneToOne
     private IngredienteEntity cuarto;
     
     

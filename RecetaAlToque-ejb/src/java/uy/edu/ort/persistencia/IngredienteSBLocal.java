@@ -7,6 +7,7 @@
 package uy.edu.ort.persistencia;
 
 import javax.ejb.Local;
+import uy.edu.ort.dominio.Ingrediente;
 import uy.edu.ort.entidades.IngredienteEntity;
 
 /**
@@ -15,7 +16,9 @@ import uy.edu.ort.entidades.IngredienteEntity;
  */
 @Local
 public interface IngredienteSBLocal {
-    public void alta(IngredienteEntity ingrediente);
-    public void modificar(IngredienteEntity ingrediente);
-    public void eliminar(IngredienteEntity ingrediente);
+    public void alta(Ingrediente ingrediente);
+    public void modificar(Ingrediente ingrediente);
+    public void eliminar(Ingrediente ingrediente);
+    
+    public IngredienteEntity obtenerPorNombre(String nombre);
 }

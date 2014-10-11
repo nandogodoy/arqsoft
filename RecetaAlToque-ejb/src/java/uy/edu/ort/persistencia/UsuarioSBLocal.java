@@ -7,6 +7,7 @@
 package uy.edu.ort.persistencia;
 
 import javax.ejb.Local;
+import uy.edu.ort.dominio.Usuario;
 /**
  *
  * @author Richard
@@ -14,7 +15,9 @@ import javax.ejb.Local;
 import uy.edu.ort.entidades.UsuarioEntity;
 @Local
 public interface UsuarioSBLocal {
-    public void alta(UsuarioEntity usuario);
-    public void eliminar(UsuarioEntity usuario);
-    public void modificar(UsuarioEntity usuario);
+    public void alta(Usuario usuario);
+    public void eliminar(Usuario usuario);
+    public void modificar(Usuario usuario);
+    
+    public UsuarioEntity obtenerPorNombre(String nombre);
 }

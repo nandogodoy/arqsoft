@@ -12,12 +12,19 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 
 /**
  *
  * @author Richard
  */
 @Entity
+@NamedQueries({
+    @NamedQuery(name = "IngredienteEntity.findAll", query = "SELECT i FROM IngredienteEntity i"),
+    @NamedQuery(name = "IngredienteEntity.findById", query = "SELECT i FROM IngredienteEntity i WHERE i.id = :id"),
+    @NamedQuery(name = "IngredienteEntity.findByNombre", query = "SELECT i FROM IngredienteEntity i WHERE i.nombre = :nombre")
+   })
 public class IngredienteEntity implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id

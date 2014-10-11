@@ -5,7 +5,7 @@
     <client name="UsuarioSB">
       <wsdl-url>http://localhost:8080/UsuarioSB/UsuarioSB?WSDL</wsdl-url>
       <local-wsdl-file>localhost_8080/UsuarioSB/UsuarioSB.wsdl</local-wsdl-file>
-      <package-name forceReplace="true">uy.edu.ort.ws.client</package-name>
+      <package-name forceReplace="true">uy.edu.ort.ws</package-name>
       <catalog-file>catalog.xml</catalog-file>
       <use-dispatch>true</use-dispatch>
       <wsimport-options>
@@ -35,7 +35,7 @@
         </wsimport-option>
         <wsimport-option>
           <wsimport-option-name>package</wsimport-option-name>
-          <wsimport-option-value>uy.edu.ort.ws.client</wsimport-option-value>
+          <wsimport-option-value>uy.edu.ort.ws</wsimport-option-value>
         </wsimport-option>
       </wsimport-options>
     </client>

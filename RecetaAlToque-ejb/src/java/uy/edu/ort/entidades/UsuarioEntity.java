@@ -14,6 +14,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
@@ -22,6 +24,12 @@ import javax.validation.constraints.NotNull;
  * @author Richard
  */
 @Entity
+@NamedQueries({
+    @NamedQuery(name = "UsuarioEntity.findAll", query = "SELECT u FROM UsuarioEntity u"),
+    @NamedQuery(name = "UsuarioEntity.findById", query = "SELECT u FROM UsuarioEntity u WHERE u.id = :id"),
+    @NamedQuery(name = "UsuarioEntity.findByNombre", query = "SELECT u FROM UsuarioEntity u WHERE u.nombre = :nombre")
+   })
+
 public class UsuarioEntity implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -30,8 +38,13 @@ public class UsuarioEntity implements Serializable {
     
     @Column(name="nombre") 
     @NotNull
-    @Id
     private String nombre;
+    
+    @Column(name="email")
+    private String email;
+    
+    @Column(name="password")
+    private String password;
     
     @Column(name="valoracion")
     private float valoracion;
@@ -72,6 +85,23 @@ public class UsuarioEntity implements Serializable {
         this.recetas = recetas;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    
     @Override
     public int hashCode() {
         int hash = 0;

@@ -19,7 +19,7 @@
     <target name="wsimport-client-UsuarioSB" depends="wsimport-init">
         <mkdir dir="${build.generated.dir}/jax-wsCache/UsuarioSB"/>
         <property name="wsdl-UsuarioSB" location="xml-resources/web-service-references/UsuarioSB/wsdl/localhost_8080/UsuarioSB/UsuarioSB.wsdl"/>
-        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/UsuarioSB" destdir="${build.generated.dir}/jax-wsCache/UsuarioSB" wsdl="${wsdl-UsuarioSB}" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://localhost:8080/UsuarioSB/UsuarioSB?WSDL" xnocompile="true" xendorsed="true" package="uy.edu.ort.ws.client">
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/UsuarioSB" destdir="${build.generated.dir}/jax-wsCache/UsuarioSB" wsdl="${wsdl-UsuarioSB}" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://localhost:8080/UsuarioSB/UsuarioSB?WSDL" xnocompile="true" xendorsed="true" package="uy.edu.ort.ws">
             <depends file="${wsdl-UsuarioSB}"/>
             <produces dir="${build.generated.dir}/jax-wsCache/UsuarioSB"/>
         </wsimport>
@@ -31,7 +31,7 @@
     </target>
     <target name="wsimport-client-clean-UsuarioSB" depends="-init-project">
         <delete dir="${build.generated.dir}/jax-wsCache/UsuarioSB"/>
-        <delete dir="${build.generated.sources.dir}/jax-ws/uy/edu/ort/ws/client"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/uy/edu/ort/ws"/>
     </target>
     <target name="wsimport-client-generate" depends="wsimport-client-UsuarioSB"/>
 </project>
