@@ -19,4 +19,6 @@ public interface RecetaSBLocal {
     public void modificar(Receta receta);
     public void eliminar(Receta receta);
     public RecetaEntity obtenerPorNombre(String nombre);
+
+    public Receta obtenerDTO(RecetaEntity entidad);
 }

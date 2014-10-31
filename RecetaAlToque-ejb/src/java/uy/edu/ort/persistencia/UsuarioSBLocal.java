@@ -20,4 +20,7 @@ public interface UsuarioSBLocal {
     public void modificar(Usuario usuario);
     
     public UsuarioEntity obtenerPorNombre(String nombre);
+
+    public Usuario obtenerDTO(UsuarioEntity u);
+    
 }

@@ -8,6 +8,7 @@ package uy.edu.ort.persistencia;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import uy.edu.ort.entidades.IngredienteEntity;
@@ -58,7 +59,7 @@ public class IngredienteSB implements IngredienteSBLocal {
             IngredienteEntity ingrediente= query.getSingleResult();
             return ingrediente;
         }
-        catch(Exception e){}
+        catch(NoResultException e){}
         return null;
     }
     // Add business logic below. (Right-click in editor and choose

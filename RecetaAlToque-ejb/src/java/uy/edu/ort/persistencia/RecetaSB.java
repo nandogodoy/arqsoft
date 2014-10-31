@@ -8,7 +8,9 @@ package uy.edu.ort.persistencia;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import uy.edu.ort.dominio.Ingrediente;
 import uy.edu.ort.entidades.RecetaEntity;
 import uy.edu.ort.dominio.Receta;
 
@@ -68,7 +70,27 @@ public class RecetaSB implements RecetaSBLocal {
     }
     
     @Override
-    public RecetaEntity obtenerPorNombre(String nombre){
+    public RecetaEntity obtenerPorNombre(String nombre)
+    {
+        try{
+            return em.createNamedQuery("RecetaEntity.findByNombre",RecetaEntity.class).setParameter("nombre", nombre).getSingleResult();
+        }
+        catch(NoResultException nores){}
         return null;
+    }
+    @Override
+    public Receta obtenerDTO(RecetaEntity entidad)
+    {
+        Receta receta= new Receta();
+        receta.setUsuario(usuarioSB.obtenerDTO(entidad.getUsuario()));
+        receta.setNombre(entidad.getNombre());
+        receta.setProcedimiento(entidad.getProcedimiento());
+        receta.setPrincipal(new Ingrediente(entidad.getPrincipal().getNombre()));
+        receta.setSegundo(new Ingrediente(entidad.getSegundo().getNombre()));
+        receta.setTercero(new Ingrediente(entidad.getTercero().getNombre()));
+        receta.setCuarto(new Ingrediente(entidad.getCuarto().getNombre()));
+        receta.setValoracion(entidad.getValoracion());
+        return receta;
+        
     }
 }

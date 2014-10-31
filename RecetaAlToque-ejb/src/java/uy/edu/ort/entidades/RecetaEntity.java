@@ -14,6 +14,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 
 /**
@@ -21,6 +23,12 @@ import javax.persistence.OneToOne;
  * @author Richard
  */
 @Entity
+@NamedQueries({
+    @NamedQuery(name = "RecetaEntity.findAll", query = "SELECT i FROM RecetaEntity i"),
+    @NamedQuery(name = "RecetaEntity.findById", query = "SELECT i FROM RecetaEntity i WHERE i.id = :id"),
+    @NamedQuery(name = "RecetaEntity.findByNombre", query = "SELECT i FROM RecetaEntity i WHERE i.nombre = :nombre")
+   })
+
 public class RecetaEntity implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id

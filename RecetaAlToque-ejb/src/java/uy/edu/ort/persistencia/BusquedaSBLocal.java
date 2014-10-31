@@ -6,7 +6,10 @@
 
 package uy.edu.ort.persistencia;
 
+import java.util.List;
 import javax.ejb.Local;
+import uy.edu.ort.dominio.Busqueda;
+import uy.edu.ort.entidades.BusquedaEntity;
 
 /**
  *
@@ -14,5 +17,9 @@ import javax.ejb.Local;
  */
 @Local
 public interface BusquedaSBLocal {
+
+    public void alta(Busqueda busqueda);
+
+    public List<Busqueda> obtenerPorUsuario(String usuario);
     
 }
