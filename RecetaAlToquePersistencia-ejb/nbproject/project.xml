@@ -7,7 +7,7 @@
             <minimum-ant-version>1.6.5</minimum-ant-version>
             <included-library dirs="200">libs.eclipselink.classpath</included-library>
             <included-library dirs="200">file.reference.mysql-connector-java-5.1.23-bin.jar</included-library>
-            <included-library dirs="200">reference.RecetaAlToque-jar.jar</included-library>
+            <included-library dirs="200">reference.RecetaAlToqueDominio-jar.jar</included-library>
             <source-roots>
                 <root id="src.dir"/>
             </source-roots>
@@ -15,7 +15,7 @@
         </data>
         <references xmlns="http://www.netbeans.org/ns/ant-project-references/1">
             <reference>
-                <foreign-project>RecetaAlToque-jar</foreign-project>
+                <foreign-project>RecetaAlToqueDominio-jar</foreign-project>
                 <artifact-type>jar</artifact-type>
                 <script>build.xml</script>
                 <target>jar</target>
