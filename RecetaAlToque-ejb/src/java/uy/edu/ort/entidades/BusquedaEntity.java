@@ -38,15 +38,15 @@ public class BusquedaEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     
-    @JoinColumn
     @ManyToOne
     private UsuarioEntity usuario;
-    @JoinColumn ( name ="ingredientes")
+
     @OneToMany
     private List<IngredienteEntity> ingredientes;
-    @JoinColumn ( name ="recetas")
+
     @OneToMany
     private List<RecetaEntity> recetas;
+
     @Column ( name ="fecha")
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date fecha;
