@@ -38,12 +38,13 @@ public class BusquedaEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     
+    @JoinColumn
     @ManyToOne
     private UsuarioEntity usuario;
-    @Column ( name ="ingredientes")
+    @JoinColumn ( name ="ingredientes")
     @OneToMany
     private List<IngredienteEntity> ingredientes;
-    @Column ( name ="recetas")
+    @JoinColumn ( name ="recetas")
     @OneToMany
     private List<RecetaEntity> recetas;
     @Column ( name ="fecha")
