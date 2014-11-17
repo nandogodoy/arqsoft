@@ -7,11 +7,22 @@
 package uy.edu.ort.servicios;
 
 
+import com.google.gson.Gson;
+
+import javax.ejb.EJB;
+
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import uy.edu.ort.dominio.Receta;
+
+import uy.edu.ort.entidades.RecetaEntity;
+
+import uy.edu.ort.persistencia.RecetaSBLocal;
 
 /**
  *
@@ -21,16 +32,24 @@ import javax.ws.rs.core.MediaType;
 public class Recetas {
     
     
+    @EJB
+    private RecetaSBLocal recetaEJB;
+    
+    private final Gson gson = new Gson();
+    
+    
     @GET
+    @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public String getReceta() {
-        
-        return "getReceta";
+    public String getReceta(@PathParam("id") long id) {
+        RecetaEntity receta = recetaEJB.obtenerPorNombre("Nombre");
+        return gson.toJson(recetaEJB.obtenerDTO(receta));
     }
     
     
     
-    @GET
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public String busquedaRecetas() {
         
