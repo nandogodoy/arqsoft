@@ -17,7 +17,6 @@ import javax.ws.rs.core.MediaType;
 import uy.edu.ort.dominio.Usuario;
 import uy.edu.ort.dummy.UsuarioDummy;
 import uy.edu.ort.entidades.UsuarioEntity;
-import uy.edu.ort.persistencia.RecetaSBLocal;
 import uy.edu.ort.persistencia.UsuarioSBLocal;
 
 /**
@@ -27,10 +26,11 @@ import uy.edu.ort.persistencia.UsuarioSBLocal;
 @Path("/usuarios")
 public class Usuarios {
     
-    
+    /*
     @EJB
     private UsuarioSBLocal usuarioEJB;
-    private final UsuarioDummy usuarioDummy = new UsuarioDummy();
+    */
+    private final UsuarioDummy usuarioEJB = new UsuarioDummy();
     
     private final Gson gson = new Gson();
     
@@ -38,12 +38,8 @@ public class Usuarios {
     @GET
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public String registro (String postData) {
-        // TODO ver como obtener los datos por POST
-        Object data = gson.fromJson(postData, Object.class);
-        Usuario usuario = new Usuario();
-        //usuarioEJB.alta(usuario);
-        usuarioDummy.alta(usuario);
+    public String registro (Usuario usuario) {
+	usuarioEJB.alta(usuario);
         return gson.toJson(usuario);
     }
     
@@ -52,21 +48,17 @@ public class Usuarios {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public String login (String postData) {
-        // TODO ver como obtener los datos por POST
-        Object data = gson.fromJson(postData, Object.class);
-        UsuarioEntity usuario = usuarioDummy.obtenerPorEmailYContraenia(postData, postData);
-        return gson.toJson(usuarioDummy.generarToken(usuarioEJB.obtenerDTO(usuario)));
+    public String login (Usuario usuario) {
+	UsuarioEntity usuarioEntity = usuarioEJB.obtenerPorEmailYContraenia(usuario.getEmail(), usuario.getPassword());
+	return gson.toJson(usuarioEJB.generarToken(usuarioEJB.obtenerDTO(usuarioEntity)));
     }
     
     
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public String logout (String postData) {
-        // TODO ver como obtener los datos por POST
-        Object data = gson.fromJson(postData, Object.class);
-        usuarioDummy.limpiarToken(postData);
+    public String logout (String token) {
+        usuarioEJB.limpiarToken(token);
         return gson.toJson("Token borrado");
     }
     
