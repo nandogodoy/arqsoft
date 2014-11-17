@@ -8,8 +8,10 @@ package uy.edu.ort.servicios;
 
 
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 
 /**
  *
@@ -20,10 +22,43 @@ public class Recetas {
     
     
     @GET
-    @Produces("text/json")
-    public String getRecetas() {
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getReceta() {
         
-        return "Recetas";
+        return "getReceta";
+    }
+    
+    
+    
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public String busquedaRecetas() {
+        
+        return "busquedaRecetas";
+    }
+    
+    
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    public String publicarReceta() {
+        
+        return "publicarReceta";
+    }
+    
+    
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    public String valorarReceta() {
+        
+        return "valorarReceta";
+    }
+    
+    
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getTopBusquedas() {
+        
+        return "getTopBusquedas";
     }
     
 }

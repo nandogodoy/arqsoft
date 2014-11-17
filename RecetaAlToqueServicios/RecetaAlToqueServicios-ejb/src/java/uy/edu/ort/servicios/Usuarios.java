@@ -9,6 +9,7 @@ package uy.edu.ort.servicios;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 
 /**
  *
@@ -18,17 +19,35 @@ import javax.ws.rs.Produces;
 public class Usuarios {
     
     
+    
     @GET
-    @Produces("text/json")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String registro () {
+        return "registro";
+    }
+    
+    
+    
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
     public String login () {
         return "Login";
     }
     
     
     @GET
-    @Produces("text/json")
+    @Produces(MediaType.APPLICATION_JSON)
     public String logout () {
         return "Logout";
+    }
+    
+    
+    
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getTopBusquedas() {
+        
+        return "getTopBusquedas";
     }
     
 }
