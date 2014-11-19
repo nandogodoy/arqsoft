@@ -6,6 +6,7 @@
 
 package uy.edu.ort.dominio;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -18,7 +19,9 @@ public class Usuario {
     private String password;
     private float valoracion;
     private List<Receta> recetas;
-
+    private String token;
+    private Date expira;
+    
     public String getNombre() {
         return nombre;
     }
@@ -57,6 +60,22 @@ public class Usuario {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public Date getExpira() {
+        return expira;
+    }
+
+    public void setExpira(Date expira) {
+        this.expira = expira;
     }
     
     

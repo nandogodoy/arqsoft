@@ -6,6 +6,8 @@
 
 package uy.edu.ort.dominio;
 
+import java.util.List;
+
 /**
  *
  * @author Richard
@@ -15,10 +17,8 @@ public class Receta {
     private float valoracion;
     private String procedimiento;
     private Usuario usuario;
-    private Ingrediente principal;
-    private Ingrediente segundo;
-    private Ingrediente tercero;
-    private Ingrediente cuarto;
+    private List<Ingrediente> ingredientes;
+    
 
     public String getNombre() {
         return nombre;
@@ -52,37 +52,14 @@ public class Receta {
         this.usuario = usuario;
     }
 
-    public Ingrediente getPrincipal() {
-        return principal;
+    public List<Ingrediente> getIngredientes() {
+        return ingredientes;
     }
 
-    public void setPrincipal(Ingrediente principal) {
-        this.principal = principal;
+    public void setIngredientes(List<Ingrediente> ingredientes) {
+        this.ingredientes = ingredientes;
     }
 
-    public Ingrediente getSegundo() {
-        return segundo;
-    }
-
-    public void setSegundo(Ingrediente segundo) {
-        this.segundo = segundo;
-    }
-
-    public Ingrediente getTercero() {
-        return tercero;
-    }
-
-    public void setTercero(Ingrediente tercero) {
-        this.tercero = tercero;
-    }
-
-    public Ingrediente getCuarto() {
-        return cuarto;
-    }
-
-    public void setCuarto(Ingrediente cuarto) {
-        this.cuarto = cuarto;
-    }
     
     
     
