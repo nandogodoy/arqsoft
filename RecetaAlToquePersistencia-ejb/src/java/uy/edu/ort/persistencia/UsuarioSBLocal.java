@@ -23,4 +23,8 @@ public interface UsuarioSBLocal {
 
     public Usuario obtenerDTO(UsuarioEntity u);
     public void expirarToken(Usuario usuario);
+    public UsuarioEntity obtenerPorEmailYContraenia(String email, String contrasenia);
+    public String generarToken(Usuario usuario);
+    public void limpiarToken(String email);
+    public UsuarioEntity obtenerPorToken(String token);
 }

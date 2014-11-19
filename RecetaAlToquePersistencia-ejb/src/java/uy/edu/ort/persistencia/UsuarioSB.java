@@ -6,7 +6,12 @@
 
 package uy.edu.ort.persistencia;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -97,6 +102,46 @@ public class UsuarioSB implements UsuarioSBLocal {
         if(em.contains(original)){
             em.merge(original);
         }
+    }
+    
+    @Override
+    public UsuarioEntity obtenerPorEmailYContraenia(String email, String contrasenia) {
+        TypedQuery<UsuarioEntity> query= em.createNamedQuery("UsuarioEntity.findByMailPasswd", UsuarioEntity.class);
+        query.setParameter("mail", email);
+        query.setParameter("passwd", contrasenia);
+        try{
+            UsuarioEntity usuario= query.getSingleResult();
+            return usuario;
+        }
+        catch(Exception e){return null;}
+    }
+    
+    @Override
+    public UsuarioEntity obtenerPorToken(String token) {
+        TypedQuery<UsuarioEntity> query= em.createNamedQuery("UsuarioEntity.findByToken", UsuarioEntity.class);
+        query.setParameter("token", token);
+        try{
+            UsuarioEntity usuario= query.getSingleResult();
+            return usuario;
+        }
+        catch(Exception e){return null;}
+    }
+    @Override
+    public String generarToken(Usuario usuario) {
+        String token = "";
+        String generador = "Tu r3c3ta" + usuario.getEmail() + (new Date()).getTime();
+        try {
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            token = md.digest(generador.getBytes()).toString();
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(UsuarioSB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return token;
+    }
+
+    @Override
+    public void limpiarToken(String email) {
+	// Borro el token del usuario
     }
     
 }
