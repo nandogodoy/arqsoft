@@ -14,13 +14,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import uy.edu.ort.dominio.Receta;
 
 /**
  *
@@ -68,6 +65,7 @@ public class RecetaEntity implements Serializable {
     private IngredienteEntity cuarto;
   */
     @OneToMany
+    @ElementCollection
     private List<IngredienteEntity> ingredientes;
     
     
