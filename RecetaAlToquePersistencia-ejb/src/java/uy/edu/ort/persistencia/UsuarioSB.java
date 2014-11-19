@@ -6,17 +6,13 @@
 
 package uy.edu.ort.persistencia;
 
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
-import uy.edu.ort.dominio.Ingrediente;
 import uy.edu.ort.dominio.Receta;
 import uy.edu.ort.dominio.Usuario;
-import uy.edu.ort.entidades.RecetaEntity;
 import uy.edu.ort.entidades.UsuarioEntity;
 
 /**
@@ -28,6 +24,7 @@ public class UsuarioSB implements UsuarioSBLocal {
 
     @PersistenceContext
     EntityManager em;
+    RecetaSBLocal recetaSB;
     
     @Override
     public void alta(Usuario usuario) {
@@ -35,6 +32,8 @@ public class UsuarioSB implements UsuarioSBLocal {
         entity.setNombre(usuario.getNombre());
         entity.setEmail(usuario.getEmail());
         entity.setPassword(usuario.getPassword());
+        entity.setToken(usuario.getToken());
+        entity.setExpira(usuario.getExpira());
         if(!em.contains(entity)){
             em.persist(entity);        
         }
@@ -55,6 +54,8 @@ public class UsuarioSB implements UsuarioSBLocal {
         original.setEmail(usuario.getEmail());
         original.setPassword(usuario.getPassword());
         original.setValoracion(usuario.getValoracion());
+        original.setToken(usuario.getToken());
+        original.setExpira(usuario.getExpira());
         if(em.contains(original)){
             em.merge(original);
         }
@@ -70,6 +71,7 @@ public class UsuarioSB implements UsuarioSBLocal {
         catch(Exception e){}
         return null;
     }
+    
     @Override
     public Usuario obtenerDTO(UsuarioEntity u)
     {
@@ -78,27 +80,23 @@ public class UsuarioSB implements UsuarioSBLocal {
         usuario.setEmail(u.getEmail());
         usuario.setPassword(u.getPassword());
         usuario.setValoracion(u.getValoracion());
-        List<Receta> recetas= new ArrayList();
-        Iterator<RecetaEntity> it = u.getRecetas().iterator();
-        while(it.hasNext())
-        {
-            RecetaEntity entidad= it.next();
-            Receta receta = new Receta();
-            receta.setNombre(entidad.getNombre());
-            receta.setProcedimiento(entidad.getProcedimiento());
-            receta.setPrincipal(new Ingrediente(entidad.getPrincipal().getNombre()));
-            receta.setSegundo(new Ingrediente(entidad.getSegundo().getNombre()));
-            receta.setTercero(new Ingrediente(entidad.getTercero().getNombre()));
-            receta.setCuarto(new Ingrediente(entidad.getCuarto().getNombre()));
-            receta.setValoracion(entidad.getValoracion());
-            receta.setUsuario(usuario);
-            recetas.add(receta);
-        }
+        usuario.setToken(u.getToken());
+        usuario.setExpira(u.getExpira());
+        List<Receta> recetas= recetaSB.obtenerListaDTO(u.getRecetas());
         usuario.setRecetas(recetas);
         return usuario;
     }
     
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")
+
+    @Override
+    public void expirarToken(Usuario usuario) {
+        UsuarioEntity original= this.obtenerPorNombre(usuario.getNombre());
+        original.setExpira(usuario.getExpira());
+        if(em.contains(original)){
+            em.merge(original);
+        }
+    }
     
 }

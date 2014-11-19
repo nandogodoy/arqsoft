@@ -22,5 +22,5 @@ public interface UsuarioSBLocal {
     public UsuarioEntity obtenerPorNombre(String nombre);
 
     public Usuario obtenerDTO(UsuarioEntity u);
-    
+    public void expirarToken(Usuario usuario);
 }

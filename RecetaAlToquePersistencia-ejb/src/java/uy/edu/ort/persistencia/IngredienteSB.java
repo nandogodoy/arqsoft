@@ -6,6 +6,9 @@
 
 package uy.edu.ort.persistencia;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -62,6 +65,17 @@ public class IngredienteSB implements IngredienteSBLocal {
         catch(NoResultException e){}
         return null;
     }
+    
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")
+
+    @Override
+    public List<Ingrediente> obtenerLista(List<IngredienteEntity> ingredientes) {
+        List<Ingrediente> lista = new ArrayList();
+        for (IngredienteEntity entidad : ingredientes) {
+            Ingrediente ing= new Ingrediente(entidad.getNombre());
+            lista.add(ing);
+        }
+        return lista;
+    }
 }

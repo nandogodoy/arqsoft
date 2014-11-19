@@ -7,6 +7,7 @@
 package uy.edu.ort.entidades;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -17,7 +18,10 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
+
 
 /**
  *
@@ -52,6 +56,13 @@ public class UsuarioEntity implements Serializable {
     @OneToMany(mappedBy="UsuarioEntity")
     @ElementCollection
     private List<RecetaEntity> recetas;
+    
+    @Column(name="token")
+    private String token;
+    
+    @Column(name="expira")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date expira;
     
     public Long getId() {
         return id;
@@ -99,6 +110,22 @@ public class UsuarioEntity implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public Date getExpira() {
+        return expira;
+    }
+
+    public void setExpira(Date expira) {
+        this.expira = expira;
     }
 
     

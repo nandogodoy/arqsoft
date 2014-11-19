@@ -7,7 +7,9 @@
 package uy.edu.ort.entidades;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,7 +18,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import uy.edu.ort.dominio.Receta;
 
 /**
  *
@@ -47,7 +51,7 @@ public class RecetaEntity implements Serializable {
     @Column (name="procedimiento")
     private String procedimiento;
     
-    @JoinColumn (name="principal")
+/*    @JoinColumn (name="principal")
     @OneToOne 
     private IngredienteEntity principal;
     
@@ -62,6 +66,10 @@ public class RecetaEntity implements Serializable {
     @JoinColumn (name="cuarto")
     @OneToOne
     private IngredienteEntity cuarto;
+  */
+    @OneToMany(mappedBy="IngredienteEntity")
+    @ElementCollection
+    private List<IngredienteEntity> ingredientes;
     
     
     public Long getId() {
@@ -104,38 +112,6 @@ public class RecetaEntity implements Serializable {
         this.procedimiento = procedimiento;
     }
 
-    public IngredienteEntity getPrincipal() {
-        return principal;
-    }
-
-    public void setPrincipal(IngredienteEntity principal) {
-        this.principal = principal;
-    }
-
-    public IngredienteEntity getSegundo() {
-        return segundo;
-    }
-
-    public void setSegundo(IngredienteEntity segundo) {
-        this.segundo = segundo;
-    }
-
-    public IngredienteEntity getTercero() {
-        return tercero;
-    }
-
-    public void setTercero(IngredienteEntity tercero) {
-        this.tercero = tercero;
-    }
-
-    public IngredienteEntity getCuarto() {
-        return cuarto;
-    }
-
-    public void setCuarto(IngredienteEntity cuarto) {
-        this.cuarto = cuarto;
-    }
-
     @Override
     public int hashCode() {
         int hash = 0;
@@ -156,6 +132,14 @@ public class RecetaEntity implements Serializable {
         return true;
     }
 
+    public List<IngredienteEntity> getIngredientes() {
+        return ingredientes;
+    }
+
+    public void setIngredientes(List<IngredienteEntity> ingredientes) {
+        this.ingredientes = ingredientes;
+    }
+    
     @Override
     public String toString() {
         return "uy.edu.ort.dominio.Receta[ id=" + id + " ]";

@@ -54,6 +54,7 @@ public class BusquedaSB implements BusquedaSBLocal {
         {
             recs.add(recetaSB.obtenerPorNombre(itr.next().getNombre()));
         }
+        entity.setRecetas(recs);
         if(!em.contains(entity)){
             em.persist(entity);
         }
@@ -82,7 +83,7 @@ public class BusquedaSB implements BusquedaSBLocal {
                 while(itRecetas.hasNext())
                 {
                     RecetaEntity entidad= itRecetas.next();
-                    recetas.add(recetaSB.obtenerDTO(entidad));   
+                    recetas.add(recetaSB.obtenerDTO(entidad));
                 }
             }
             return lista;

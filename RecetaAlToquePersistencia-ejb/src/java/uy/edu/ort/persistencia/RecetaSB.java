@@ -6,6 +6,9 @@
 
 package uy.edu.ort.persistencia;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -35,10 +38,7 @@ public class RecetaSB implements RecetaSBLocal {
         entity.setUsuario(usuarioSB.obtenerPorNombre(receta.getUsuario().getNombre()));
         entity.setValoracion(receta.getValoracion());
         entity.setProcedimiento(receta.getProcedimiento());
-        entity.setPrincipal(ingredienteSB.obtenerPorNombre(receta.getPrincipal().getNombre()));
-        entity.setSegundo(ingredienteSB.obtenerPorNombre(receta.getSegundo().getNombre()));
-        entity.setTercero(ingredienteSB.obtenerPorNombre(receta.getTercero().getNombre()));
-        entity.setCuarto(ingredienteSB.obtenerPorNombre(receta.getCuarto().getNombre()));
+        //entity.setIngredientes(ingredienteSB.obtenerLista(receta.getIngredientes()));
         
         if(!em.contains(entity)){
             em.persist(entity);
@@ -51,10 +51,7 @@ public class RecetaSB implements RecetaSBLocal {
         original.setUsuario(usuarioSB.obtenerPorNombre(receta.getUsuario().getNombre()));
         original.setValoracion(receta.getValoracion());
         original.setProcedimiento(receta.getProcedimiento());
-        original.setPrincipal(ingredienteSB.obtenerPorNombre(receta.getPrincipal().getNombre()));
-        original.setSegundo(ingredienteSB.obtenerPorNombre(receta.getSegundo().getNombre()));
-        original.setTercero(ingredienteSB.obtenerPorNombre(receta.getTercero().getNombre()));
-        original.setCuarto(ingredienteSB.obtenerPorNombre(receta.getCuarto().getNombre()));
+//        original.setIngredientes(ingredienteSB.obtenerLista(receta.getIngredientes()));
         
         if(em.contains(original)){
             em.merge(original);
@@ -82,15 +79,23 @@ public class RecetaSB implements RecetaSBLocal {
     public Receta obtenerDTO(RecetaEntity entidad)
     {
         Receta receta= new Receta();
-        receta.setUsuario(usuarioSB.obtenerDTO(entidad.getUsuario()));
         receta.setNombre(entidad.getNombre());
         receta.setProcedimiento(entidad.getProcedimiento());
-        receta.setPrincipal(new Ingrediente(entidad.getPrincipal().getNombre()));
-        receta.setSegundo(new Ingrediente(entidad.getSegundo().getNombre()));
-        receta.setTercero(new Ingrediente(entidad.getTercero().getNombre()));
-        receta.setCuarto(new Ingrediente(entidad.getCuarto().getNombre()));
+        receta.setIngredientes(ingredienteSB.obtenerLista(entidad.getIngredientes()));
         receta.setValoracion(entidad.getValoracion());
         return receta;
         
+    }
+
+    @Override
+    public List<Receta> obtenerListaDTO(List<RecetaEntity> recetas) {
+        List<Receta> recs = new ArrayList();
+        Iterator it = recetas.iterator();
+        while(it.hasNext())
+        {
+            Receta r= obtenerDTO((RecetaEntity)it.next());
+            recs.add(r);
+        }
+        return recs;
     }
 }
