@@ -15,7 +15,6 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import uy.edu.ort.dominio.Usuario;
-import uy.edu.ort.dummy.UsuarioDummy;
 import uy.edu.ort.entidades.UsuarioEntity;
 import uy.edu.ort.persistencia.UsuarioSBLocal;
 
@@ -26,11 +25,9 @@ import uy.edu.ort.persistencia.UsuarioSBLocal;
 @Path("/usuarios")
 public class Usuarios {
     
-    /*
+    
     @EJB
     private UsuarioSBLocal usuarioEJB;
-    */
-    private final UsuarioDummy usuarioEJB = new UsuarioDummy();
     
     private final Gson gson = new Gson();
     
