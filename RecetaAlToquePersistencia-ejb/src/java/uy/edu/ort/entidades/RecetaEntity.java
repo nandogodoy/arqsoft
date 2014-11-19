@@ -67,8 +67,7 @@ public class RecetaEntity implements Serializable {
     @OneToOne
     private IngredienteEntity cuarto;
   */
-    @OneToMany(mappedBy="IngredienteEntity")
-    @ElementCollection
+    @OneToMany
     private List<IngredienteEntity> ingredientes;
     
     
