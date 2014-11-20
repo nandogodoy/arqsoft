@@ -9,6 +9,7 @@ package uy.edu.ort.persistencia;
 import java.util.List;
 import javax.ejb.Local;
 import uy.edu.ort.dominio.Receta;
+import uy.edu.ort.dominio.Usuario;
 import uy.edu.ort.entidades.RecetaEntity;
 /**
  *
@@ -16,7 +17,8 @@ import uy.edu.ort.entidades.RecetaEntity;
  */
 @Local
 public interface RecetaSBLocal {
-    public void alta(Receta receta);
+    public void alta(Receta receta, Usuario usuario);
+
     public void modificar(Receta receta);
     public void eliminar(Receta receta);
     public RecetaEntity obtenerPorNombre(String nombre);
@@ -24,4 +26,5 @@ public interface RecetaSBLocal {
     public Receta obtenerDTO(RecetaEntity entidad);
 
     public List<Receta> obtenerListaDTO(List<RecetaEntity> recetas);
+
 }

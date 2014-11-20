@@ -87,8 +87,6 @@ public class UsuarioSB implements UsuarioSBLocal {
         usuario.setValoracion(u.getValoracion());
         usuario.setToken(u.getToken());
         usuario.setExpira(u.getExpira());
-        List<Receta> recetas= recetaSB.obtenerListaDTO(u.getRecetas());
-        usuario.setRecetas(recetas);
         return usuario;
     }
     

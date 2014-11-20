@@ -13,9 +13,9 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
-import uy.edu.ort.dominio.Ingrediente;
 import uy.edu.ort.entidades.RecetaEntity;
 import uy.edu.ort.dominio.Receta;
+import uy.edu.ort.dominio.Usuario;
 
 /**
  *
@@ -32,10 +32,10 @@ public class RecetaSB implements RecetaSBLocal {
     // "Insert Code > Add Business Method")
 
     @Override
-    public void alta(Receta receta) {
+    public void alta(Receta receta,Usuario usuario) {
         RecetaEntity entity= new RecetaEntity();
         entity.setNombre(receta.getNombre());
-        entity.setUsuario(usuarioSB.obtenerPorNombre(receta.getUsuario().getNombre()));
+        entity.setUsuario(usuarioSB.obtenerPorNombre(usuario.getNombre()));
         entity.setValoracion(receta.getValoracion());
         entity.setProcedimiento(receta.getProcedimiento());
         //entity.setIngredientes(ingredienteSB.obtenerLista(receta.getIngredientes()));
@@ -48,7 +48,6 @@ public class RecetaSB implements RecetaSBLocal {
     @Override
     public void modificar(Receta receta) {
         RecetaEntity original=this.obtenerPorNombre(receta.getNombre());
-        original.setUsuario(usuarioSB.obtenerPorNombre(receta.getUsuario().getNombre()));
         original.setValoracion(receta.getValoracion());
         original.setProcedimiento(receta.getProcedimiento());
 //        original.setIngredientes(ingredienteSB.obtenerLista(receta.getIngredientes()));
