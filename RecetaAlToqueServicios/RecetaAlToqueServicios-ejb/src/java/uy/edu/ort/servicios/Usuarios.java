@@ -7,6 +7,7 @@
 package uy.edu.ort.servicios;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import javax.ejb.EJB;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -37,9 +38,10 @@ public class Usuarios {
     @Produces(MediaType.APPLICATION_JSON)
     public String registro (Usuario usuario) {
 	usuarioEJB.alta(usuario);
-        return gson.toJson(usuario);
-    }
-    
+        Gson transformer = new GsonBuilder().create();
+        return transformer.toJson(usuario);
+        //return gson.toJson(usuario);
+    }   
     
     
     @POST
