@@ -46,9 +46,6 @@ public class BusquedaEntity implements Serializable {
     @ElementCollection
     private List<IngredienteEntity> ingredientes;
 
-    @OneToMany
-    private List<RecetaEntity> recetas;
-
     @Column ( name ="fecha")
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date fecha;
@@ -75,14 +72,6 @@ public class BusquedaEntity implements Serializable {
 
     public void setIngredientes(List<IngredienteEntity> ingredientes) {
         this.ingredientes = ingredientes;
-    }
-
-    public List<RecetaEntity> getRecetas() {
-        return recetas;
-    }
-
-    public void setRecetas(List<RecetaEntity> recetas) {
-        this.recetas = recetas;
     }
 
     public Date getFecha() {
