@@ -87,10 +87,10 @@ public class UsuarioDummy {
             receta.setCuarto(new Ingrediente(entidad.getCuarto().getNombre()));
 	    */
             receta.setValoracion(entidad.getValoracion());
-            receta.setUsuario(usuario);
+            //receta.setUsuario(usuario);
             recetas.add(receta);
         }
-        usuario.setRecetas(recetas);
+        //usuario.setRecetas(recetas);
         return usuario;
     }
     

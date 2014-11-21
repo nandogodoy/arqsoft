@@ -17,14 +17,14 @@ import java.util.List;
 public class Busqueda {
     private Usuario usuario;
     private List<Ingrediente> ingredientes;
-    private List<Receta> recetas;
+    //private List<Receta> recetas;
     private Date fecha;
 
     public Busqueda(Usuario usuario, List<Ingrediente> ingredientes, Date fecha) {
         this.usuario = usuario;
         this.ingredientes = ingredientes;
         this.fecha = fecha;
-        this.recetas = new ArrayList<Receta>();
+      //  this.recetas = new ArrayList<Receta>();
     }
 
     
@@ -43,7 +43,7 @@ public class Busqueda {
     public void setIngredientes(List<Ingrediente> ingredientes) {
         this.ingredientes = ingredientes;
     }
-
+/*
     public List<Receta> getRecetas() {
         return recetas;
     }
@@ -51,7 +51,7 @@ public class Busqueda {
     public void setRecetas(List<Receta> recetas) {
         this.recetas = recetas;
     }
-
+*/
     public Date getFecha() {
         return fecha;
     }

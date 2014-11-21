@@ -16,7 +16,6 @@ public class Receta {
     private String nombre;
     private float valoracion;
     private String procedimiento;
-    private Usuario usuario;
     private List<Ingrediente> ingredientes;
     
 
@@ -42,14 +41,6 @@ public class Receta {
 
     public void setProcedimiento(String procedimiento) {
         this.procedimiento = procedimiento;
-    }
-
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
     }
 
     public List<Ingrediente> getIngredientes() {

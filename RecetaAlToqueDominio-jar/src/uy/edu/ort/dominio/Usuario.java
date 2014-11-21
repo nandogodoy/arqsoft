@@ -18,7 +18,6 @@ public class Usuario {
     private String email;
     private String password;
     private float valoracion;
-    private List<Receta> recetas;
     private String token;
     private Date expira;
     
@@ -38,13 +37,6 @@ public class Usuario {
         this.valoracion = valoracion;
     }
 
-    public List<Receta> getRecetas() {
-        return recetas;
-    }
-
-    public void setRecetas(List<Receta> recetas) {
-        this.recetas = recetas;
-    }
 
     public String getEmail() {
         return email;

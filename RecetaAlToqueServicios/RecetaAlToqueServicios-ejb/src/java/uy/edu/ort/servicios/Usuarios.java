@@ -7,6 +7,7 @@
 package uy.edu.ort.servicios;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import javax.ejb.EJB;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -15,7 +16,6 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import uy.edu.ort.dominio.Usuario;
-import uy.edu.ort.dummy.UsuarioDummy;
 import uy.edu.ort.entidades.UsuarioEntity;
 import uy.edu.ort.persistencia.UsuarioSBLocal;
 
@@ -26,11 +26,9 @@ import uy.edu.ort.persistencia.UsuarioSBLocal;
 //@Path("/usuarios")
 public class Usuarios {
     
-    /*
+    
     @EJB
     private UsuarioSBLocal usuarioEJB;
-    */
-    private final UsuarioDummy usuarioEJB = new UsuarioDummy();
     
     private final Gson gson = new Gson();
     
@@ -41,9 +39,10 @@ public class Usuarios {
     @Path("registro")
     public String registro (Usuario usuario) {
 	usuarioEJB.alta(usuario);
-        return gson.toJson(usuario);
-    }
-    
+        Gson transformer = new GsonBuilder().create();
+        return transformer.toJson(usuario);
+        //return gson.toJson(usuario);
+    }   
     
     
     @POST
