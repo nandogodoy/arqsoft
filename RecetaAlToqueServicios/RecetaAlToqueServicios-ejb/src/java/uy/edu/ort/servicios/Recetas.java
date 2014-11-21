@@ -27,7 +27,7 @@ import uy.edu.ort.persistencia.RecetaSBLocal;
  *
  * @author Nando
  */
-@Path("/recetas")
+//@Path("/recetas")
 public class Recetas {
     
     

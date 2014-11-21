@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package uy.edu.ort.servicios;
+package uy.edu.ort.rest;
 
 import com.google.gson.Gson;
 import javax.ejb.EJB;
@@ -14,23 +14,26 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+
+
 import uy.edu.ort.dominio.Usuario;
-import uy.edu.ort.dummy.UsuarioDummy;
 import uy.edu.ort.entidades.UsuarioEntity;
 import uy.edu.ort.persistencia.UsuarioSBLocal;
+import uy.edu.ort.rest.dummy.UsuarioDummy;
+
 
 /**
  *
  * @author Nando
  */
-//@Path("/usuarios")
+@Path("/usuarios")
 public class Usuarios {
     
-    /*
+    
+    
     @EJB
     private UsuarioSBLocal usuarioEJB;
-    */
-    private final UsuarioDummy usuarioEJB = new UsuarioDummy();
+    //private final UsuarioDummy usuarioEJB = new UsuarioDummy();
     
     private final Gson gson = new Gson();
     
@@ -53,8 +56,9 @@ public class Usuarios {
     public String login (Usuario usuario) {
 	String email	= usuario.getEmail();
 	String password	= usuario.getPassword();
-	UsuarioEntity usuarioEntity = usuarioEJB.obtenerPorEmailYContraenia(email, password);
-	return gson.toJson(usuarioEJB.generarToken(usuarioEJB.obtenerDTO(usuarioEntity)));
+	//UsuarioEntity usuarioEntity = usuarioEJB.obtenerPorEmailYContraenia(email, password);
+	//return gson.toJson(usuarioEJB.generarToken(usuarioEJB.obtenerDTO(usuarioEntity)));
+	return gson.toJson(usuario);
     }
     
     
@@ -63,7 +67,7 @@ public class Usuarios {
     @Produces(MediaType.APPLICATION_JSON)
     @Path("logout")
     public String logout (String token) {
-        usuarioEJB.limpiarToken(token);
+        //usuarioEJB.limpiarToken(token);
         return gson.toJson("Token borrado");
     }
     
@@ -76,5 +80,4 @@ public class Usuarios {
         
         return gson.toJson("getTopBusquedas");
     }
-    
 }
