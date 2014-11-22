@@ -7,6 +7,7 @@
 package uy.edu.ort.negocio.gestion;
 
 import javax.ejb.Local;
+import uy.edu.ort.dominio.Usuario;
 
 /**
  *
@@ -14,5 +15,15 @@ import javax.ejb.Local;
  */
 @Local
 public interface UsuarioSBLocal {
+    
+    
+    public Usuario alta(Usuario usuario);
+    public void eliminar(Usuario usuario);
+    public void modificar(Usuario usuario);
+
+    
+    public String login(Usuario usuario);
+    public Usuario obtenerPorToken(String token);
+    public void expirarToken(Usuario usuario);
     
 }

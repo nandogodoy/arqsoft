@@ -22,9 +22,7 @@ import javax.ws.rs.core.MediaType;
 
 
 import uy.edu.ort.dominio.Usuario;
-import uy.edu.ort.entidades.UsuarioEntity;
-import uy.edu.ort.persistencia.UsuarioSBLocal;
-import uy.edu.ort.rest.dummy.UsuarioDummy;
+import uy.edu.ort.negocio.gestion.UsuarioSBLocal;
 
 
 /**
@@ -48,9 +46,7 @@ public class Usuarios {
     @Produces(MediaType.APPLICATION_JSON)
     @Path("registro")
     public String registro (Usuario usuario) {
-	this.encriptarPassword(usuario);
-	this.generarToken(usuario);
-	usuarioEJB.alta(usuario);
+	usuario = usuarioEJB.alta(usuario);
         return gson.toJson(usuario);
     }
     
@@ -88,29 +84,4 @@ public class Usuarios {
         return gson.toJson("getTopBusquedas");
     }
     
-    
-    
-    private void generarToken(Usuario usuario) {
-        String token = "";
-	long now = (new Date()).getTime();
-        String generador = "Tu r3c3ta" + usuario.getEmail() + now;
-        try {
-            MessageDigest md = MessageDigest.getInstance("MD5");
-            token = md.digest(generador.getBytes()).toString();
-        } catch (NoSuchAlgorithmException ex) {
-            Logger.getLogger(UsuarioDummy.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        usuario.setToken(token);
-	usuario.setExpira(new Date(now + 5 * 60 * 1000));
-    }
-    
-    
-    private void encriptarPassword(Usuario usuario) {
-        try {
-            MessageDigest md = MessageDigest.getInstance("MD5");
-            usuario.setPassword(md.digest(usuario.getPassword().getBytes()).toString());
-        } catch (NoSuchAlgorithmException ex) {
-            Logger.getLogger(UsuarioDummy.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
 }
