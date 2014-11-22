@@ -48,26 +48,12 @@ public class RecetaEntity implements Serializable {
     @Column (name="procedimiento")
     private String procedimiento;
     
-/*    @JoinColumn (name="principal")
-    @OneToOne 
-    private IngredienteEntity principal;
-    
-    @JoinColumn (name="segundo")
-    @OneToOne
-    private IngredienteEntity segundo;
-    
-    @JoinColumn (name="tercero")
-    @OneToOne
-    private IngredienteEntity tercero;
-    
-    @JoinColumn (name="cuarto")
-    @OneToOne
-    private IngredienteEntity cuarto;
-  */
     @OneToMany
     @ElementCollection
     private List<IngredienteEntity> ingredientes;
     
+    @Column (name="cantvaloraciones")
+    private int cantValoraciones;
     
     public Long getId() {
         return id;
@@ -135,6 +121,14 @@ public class RecetaEntity implements Serializable {
 
     public void setIngredientes(List<IngredienteEntity> ingredientes) {
         this.ingredientes = ingredientes;
+    }
+
+    public int getCantValoraciones() {
+        return cantValoraciones;
+    }
+
+    public void setCantValoraciones(int cantValoraciones) {
+        this.cantValoraciones = cantValoraciones;
     }
     
     @Override

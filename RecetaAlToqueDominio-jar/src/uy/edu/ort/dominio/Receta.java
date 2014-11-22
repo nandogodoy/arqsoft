@@ -17,6 +17,7 @@ public class Receta {
     private float valoracion;
     private String procedimiento;
     private List<Ingrediente> ingredientes;
+    private int cantValoraciones;
     
 
     public String getNombre() {
@@ -51,7 +52,13 @@ public class Receta {
         this.ingredientes = ingredientes;
     }
 
-    
+    public int getCantValoraciones() {
+        return cantValoraciones;
+    }
+
+    public void setCantValoraciones(int cantValoraciones) {
+        this.cantValoraciones = cantValoraciones;
+    }
     
     
 }

@@ -7,12 +7,15 @@
 package uy.edu.ort.negocio.core;
 
 import javax.ejb.Local;
-
+import uy.edu.ort.dominio.*;
 /**
  *
  * @author Richard
  */
 @Local
 public interface RecetaSBLocal {
+    
+    void valorar(Receta receta,float valoracion);
+    void alta(Receta receta,Usuario usuario);
     
 }
