@@ -121,8 +121,11 @@ public class UsuarioSB implements UsuarioSBLocal {
         try{
             UsuarioEntity usuario = query.getSingleResult();
             return this.obtenerDTO(usuario);
-        }
-        catch(Exception e){return null;}
+        } catch(Exception e){
+	    System.out.println("No se encontro el usuario por token: "+token);
+	    System.out.println("e.getMessage(): "+e.getMessage());
+	    return null;
+	}
     }
     @Override
     public String generarToken(Usuario usuario) {
