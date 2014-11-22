@@ -7,6 +7,11 @@
 package uy.edu.ort.rest;
 
 import com.google.gson.Gson;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -43,6 +48,8 @@ public class Usuarios {
     @Produces(MediaType.APPLICATION_JSON)
     @Path("registro")
     public String registro (Usuario usuario) {
+	this.encriptarPassword(usuario);
+	this.generarToken(usuario);
 	usuarioEJB.alta(usuario);
         return gson.toJson(usuario);
     }
@@ -79,5 +86,31 @@ public class Usuarios {
     public String getTopBusquedas() {
         
         return gson.toJson("getTopBusquedas");
+    }
+    
+    
+    
+    private void generarToken(Usuario usuario) {
+        String token = "";
+	long now = (new Date()).getTime();
+        String generador = "Tu r3c3ta" + usuario.getEmail() + now;
+        try {
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            token = md.digest(generador.getBytes()).toString();
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(UsuarioDummy.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        usuario.setToken(token);
+	usuario.setExpira(new Date(now + 5 * 60 * 1000));
+    }
+    
+    
+    private void encriptarPassword(Usuario usuario) {
+        try {
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            usuario.setPassword(md.digest(usuario.getPassword().getBytes()).toString());
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(UsuarioDummy.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }
