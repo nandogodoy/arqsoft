@@ -46,11 +46,8 @@ public class Usuarios {
     @Produces(MediaType.APPLICATION_JSON)
     @Path("login")
     public String login (Usuario usuario) {
-	String email	= usuario.getEmail();
-	String password	= usuario.getPassword();
-	//UsuarioEntity usuarioEntity = usuarioEJB.obtenerPorEmailYContraenia(email, password);
-	//return gson.toJson(usuarioEJB.generarToken(usuarioEJB.obtenerDTO(usuarioEntity)));
-	return gson.toJson(usuario);
+	String token = usuarioEJB.login(usuario);
+	return gson.toJson(token);
     }
     
     

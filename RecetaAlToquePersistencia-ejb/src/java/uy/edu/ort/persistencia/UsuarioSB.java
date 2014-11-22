@@ -70,7 +70,7 @@ public class UsuarioSB implements UsuarioSBLocal {
         TypedQuery<UsuarioEntity> query= em.createNamedQuery("UsuarioEntity.findByNombre", UsuarioEntity.class);
         query.setParameter("nombre", nombre);
         try{
-            UsuarioEntity usuario= query.getSingleResult();
+            UsuarioEntity usuario = query.getSingleResult();
             return usuario;
         }
         catch(Exception e){}
@@ -103,24 +103,24 @@ public class UsuarioSB implements UsuarioSBLocal {
     }
     
     @Override
-    public UsuarioEntity obtenerPorEmailYContraenia(String email, String contrasenia) {
+    public Usuario obtenerPorEmailYContraenia(String email, String contrasenia) {
         TypedQuery<UsuarioEntity> query= em.createNamedQuery("UsuarioEntity.findByMailPasswd", UsuarioEntity.class);
         query.setParameter("mail", email);
         query.setParameter("passwd", contrasenia);
         try{
-            UsuarioEntity usuario= query.getSingleResult();
-            return usuario;
+            UsuarioEntity usuario = query.getSingleResult();
+            return this.obtenerDTO(usuario);
         }
         catch(Exception e){return null;}
     }
     
     @Override
-    public UsuarioEntity obtenerPorToken(String token) {
+    public Usuario obtenerPorToken(String token) {
         TypedQuery<UsuarioEntity> query= em.createNamedQuery("UsuarioEntity.findByToken", UsuarioEntity.class);
         query.setParameter("token", token);
         try{
-            UsuarioEntity usuario= query.getSingleResult();
-            return usuario;
+            UsuarioEntity usuario = query.getSingleResult();
+            return this.obtenerDTO(usuario);
         }
         catch(Exception e){return null;}
     }
