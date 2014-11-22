@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -30,8 +31,11 @@ public class BusquedaSB implements BusquedaSBLocal {
 
     @PersistenceContext
     EntityManager em;
+    @EJB
     UsuarioSBLocal usuarioSB;
+    @EJB
     IngredienteSBLocal ingredienteSB;
+    @EJB
     RecetaSBLocal recetaSB;
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")

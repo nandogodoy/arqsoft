@@ -42,7 +42,8 @@ public class Usuarios {
     public String registro (Usuario usuario) {
 	usuario = usuarioEJB.alta(usuario);
         System.out.println("paso");
-        return gson.toJson(usuario);
+        //return gson.toJson(usuario);
+        return "Termino";
     }    
     
     @POST

@@ -12,6 +12,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -29,6 +30,7 @@ public class UsuarioSB implements UsuarioSBLocal {
 
     @PersistenceContext
     EntityManager em;
+    @EJB
     RecetaSBLocal recetaSB;
     
     @Override
@@ -60,7 +62,9 @@ public class UsuarioSB implements UsuarioSBLocal {
         original.setPassword(usuario.getPassword());
         original.setValoracion(usuario.getValoracion());
         original.setToken(usuario.getToken());
+        
         original.setExpira(usuario.getExpira());
+        
         if(em.contains(original)){
             em.merge(original);
         }
@@ -96,7 +100,9 @@ public class UsuarioSB implements UsuarioSBLocal {
     @Override
     public void expirarToken(Usuario usuario) {
         UsuarioEntity original= this.obtenerPorNombre(usuario.getNombre());
+        
         original.setExpira(usuario.getExpira());
+        
         if(em.contains(original)){
             em.merge(original);
         }
