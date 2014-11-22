@@ -4,13 +4,10 @@
  * and open the template in the editor.
  */
 
-package uy.edu.ort.servicios;
-
+package uy.edu.ort.rest;
 
 import com.google.gson.Gson;
-
 import javax.ejb.EJB;
-
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -18,16 +15,14 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-
 import uy.edu.ort.entidades.RecetaEntity;
-
 import uy.edu.ort.persistencia.RecetaSBLocal;
 
 /**
  *
- * @author Nando
+ * @author ASUS
  */
-//@Path("/recetas")
+@Path("/recetas")
 public class Recetas {
     
     
@@ -48,6 +43,7 @@ public class Recetas {
     
     
     @POST
+    @Path("busqueda")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public String busquedaRecetas() {
@@ -57,6 +53,8 @@ public class Recetas {
     
     
     @POST
+    @Path("publicar")
+    @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public String publicarReceta() {
         
@@ -65,6 +63,8 @@ public class Recetas {
     
     
     @POST
+    @Path("valorar")
+    @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public String valorarReceta() {
         
@@ -73,10 +73,10 @@ public class Recetas {
     
     
     @GET
+    @Path("gettop")
     @Produces(MediaType.APPLICATION_JSON)
     public String getTopBusquedas() {
         
         return "getTopBusquedas";
     }
-    
 }

@@ -23,7 +23,7 @@ import uy.edu.ort.persistencia.UsuarioSBLocal;
  *
  * @author Nando
  */
-@Path("/usuarios")
+//@Path("/usuarios")
 public class Usuarios {
     
     
@@ -33,9 +33,10 @@ public class Usuarios {
     private final Gson gson = new Gson();
     
     
-    @GET
+    @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
+    @Path("registro")
     public String registro (Usuario usuario) {
 	usuarioEJB.alta(usuario);
         Gson transformer = new GsonBuilder().create();
@@ -47,8 +48,11 @@ public class Usuarios {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
+    @Path("login")
     public String login (Usuario usuario) {
-	UsuarioEntity usuarioEntity = usuarioEJB.obtenerPorEmailYContraenia(usuario.getEmail(), usuario.getPassword());
+	String email	= usuario.getEmail();
+	String password	= usuario.getPassword();
+	UsuarioEntity usuarioEntity = usuarioEJB.obtenerPorEmailYContraenia(email, password);
 	return gson.toJson(usuarioEJB.generarToken(usuarioEJB.obtenerDTO(usuarioEntity)));
     }
     
@@ -56,6 +60,7 @@ public class Usuarios {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
+    @Path("logout")
     public String logout (String token) {
         usuarioEJB.limpiarToken(token);
         return gson.toJson("Token borrado");
@@ -65,9 +70,10 @@ public class Usuarios {
     
     @GET
     @Produces(MediaType.APPLICATION_JSON)
+    @Path("topbusquedas")
     public String getTopBusquedas() {
         
-        return "getTopBusquedas";
+        return gson.toJson("getTopBusquedas");
     }
     
 }

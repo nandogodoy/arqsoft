@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package uy.edu.ort.dummy;
+package uy.edu.ort.rest.dummy;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -14,7 +14,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import uy.edu.ort.dominio.Ingrediente;
 import uy.edu.ort.dominio.Receta;
 import uy.edu.ort.dominio.Usuario;
 import uy.edu.ort.entidades.RecetaEntity;
@@ -81,14 +80,12 @@ public class UsuarioDummy {
             Receta receta = new Receta();
             receta.setNombre(entidad.getNombre());
             receta.setProcedimiento(entidad.getProcedimiento());
-
 	    /*
             receta.setPrincipal(new Ingrediente(entidad.getPrincipal().getNombre()));
             receta.setSegundo(new Ingrediente(entidad.getSegundo().getNombre()));
             receta.setTercero(new Ingrediente(entidad.getTercero().getNombre()));
             receta.setCuarto(new Ingrediente(entidad.getCuarto().getNombre()));
 	    */
-
             receta.setValoracion(entidad.getValoracion());
             //receta.setUsuario(usuario);
             recetas.add(receta);
