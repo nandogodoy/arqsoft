@@ -6,6 +6,7 @@
 
 package uy.edu.ort.negocio.gestion;
 
+import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Date;
@@ -48,7 +49,12 @@ public class UsuarioSB implements UsuarioSBNegocio {
 
     @Override
     public String login(Usuario usuario) {
-	throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+	this.encriptarPassword(usuario);
+	usuario = usuarioEJB.obtenerPorEmailYContraenia(usuario.getEmail(), usuario.getPassword());
+	this.generarToken(usuario);
+	this.actualizarExpira(usuario);
+	usuarioEJB.modificar(usuario);
+	return usuario.getToken();
     }
 
     @Override
@@ -62,27 +68,45 @@ public class UsuarioSB implements UsuarioSBNegocio {
     }
 
     private void generarToken(Usuario usuario) {
-        String token = "";
 	long now = (new Date()).getTime();
         String generador = "Tu r3c3ta" + usuario.getEmail() + now;
-        try {
-            MessageDigest md = MessageDigest.getInstance("MD5");
-            token = md.digest(generador.getBytes()).toString();
-        } catch (NoSuchAlgorithmException ex) {
-            Logger.getLogger(UsuarioSB.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        usuario.setToken(token);
+        usuario.setToken(this.md5Java(generador));
 	usuario.setExpira(new Date(now + 5 * 60 * 1000));
     }
     
     
     private void encriptarPassword(Usuario usuario) {
+	usuario.setPassword(this.md5Java(usuario.getPassword()));        
+    }
+    
+    private void actualizarExpira (Usuario usuario) {
+	long now = (new Date()).getTime();
+	usuario.setExpira(new Date(now + 5 * 60 * 1000));
+    }
+	    
+    
+    
+    private String md5Java (String message){
+        String digest = null;
         try {
             MessageDigest md = MessageDigest.getInstance("MD5");
-            usuario.setPassword(md.digest(usuario.getPassword().getBytes()).toString());
+            byte[] hash = md.digest(message.getBytes("UTF-8"));
+           
+            //converting byte array to Hexadecimal String
+           StringBuilder sb = new StringBuilder(2*hash.length);
+           for(byte b : hash){
+               sb.append(String.format("%02x", b&0xff));
+           }
+          
+           digest = sb.toString();
+          
+        } catch (UnsupportedEncodingException ex) {
+            Logger.getLogger(UsuarioSB.class.getName()).log(Level.SEVERE, null, ex);
         } catch (NoSuchAlgorithmException ex) {
             Logger.getLogger(UsuarioSB.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return digest;
     }
+
     
 }
