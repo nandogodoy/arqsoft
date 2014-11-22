@@ -106,6 +106,7 @@ public class RecetaSB implements RecetaSBLocal {
         float valorPrevio = entidad.getCantValoraciones();
         float valorNuevo= (valorPrevio*cantidad + valoracion )/( cantidad + 1 );
         entidad.setValoracion(valorNuevo);
+        entidad.setCantValoraciones(cantidad+1);
         em.merge(entidad);
     }
     
