@@ -27,4 +27,5 @@ public interface RecetaSBLocal {
 
     public List<Receta> obtenerListaDTO(List<RecetaEntity> recetas);
 
+    public void valorar(Receta receta, float valoracion);
 }

@@ -37,6 +37,7 @@ public class RecetaSB implements RecetaSBLocal {
         entity.setNombre(receta.getNombre());
         entity.setUsuario(usuarioSB.obtenerPorNombre(usuario.getNombre()));
         entity.setValoracion(receta.getValoracion());
+        entity.setCantValoraciones(receta.getCantValoraciones());
         entity.setProcedimiento(receta.getProcedimiento());
         //entity.setIngredientes(ingredienteSB.obtenerLista(receta.getIngredientes()));
         
@@ -97,4 +98,16 @@ public class RecetaSB implements RecetaSBLocal {
         }
         return recs;
     }
+
+    @Override
+    public void valorar(Receta receta, float valoracion) {
+        RecetaEntity entidad = obtenerPorNombre(receta.getNombre());
+        int cantidad = entidad.getCantValoraciones();
+        float valorPrevio = entidad.getCantValoraciones();
+        float valorNuevo= (valorPrevio*cantidad + valoracion )/( cantidad + 1 );
+        entidad.setValoracion(valorNuevo);
+        entidad.setCantValoraciones(cantidad+1);
+        em.merge(entidad);
+    }
+    
 }

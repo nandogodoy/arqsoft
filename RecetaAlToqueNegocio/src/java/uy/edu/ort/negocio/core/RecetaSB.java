@@ -6,15 +6,27 @@
 
 package uy.edu.ort.negocio.core;
 
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
-
+import uy.edu.ort.dominio.Receta;
+import uy.edu.ort.dominio.Usuario;
 /**
  *
  * @author Richard
  */
 @Stateless
-public class RecetaSB implements RecetaSBLocal {
-
+public class RecetaSB implements uy.edu.ort.negocio.core.RecetaSBLocal {
+    
+    @EJB
+    uy.edu.ort.persistencia.RecetaSBLocal persistencia;
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")
+    @Override
+    public void valorar(Receta receta,float valoracion){
+        persistencia.valorar(receta,valoracion);        
+    }
+    @Override
+    public void alta(Receta receta,Usuario usuario){
+        persistencia.alta(receta, usuario);
+    }
 }
