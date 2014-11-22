@@ -10,15 +10,16 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import uy.edu.ort.dominio.Receta;
 import uy.edu.ort.dominio.Usuario;
+import uy.edu.ort.persistencia.RecetaSBLocal;
 /**
  *
  * @author Richard
  */
 @Stateless
-public class RecetaSB implements uy.edu.ort.negocio.core.RecetaSBLocal {
+public class RecetaSB implements RecetaSBNegocio {
     
     @EJB
-    uy.edu.ort.persistencia.RecetaSBLocal persistencia;
+    RecetaSBLocal persistencia;
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")
     @Override

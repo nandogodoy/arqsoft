@@ -13,7 +13,7 @@ import javax.ejb.Stateless;
  * @author Richard
  */
 @Stateless
-public class BusquedaSB implements BusquedaSBLocal {
+public class BusquedaSB implements BusquedaSBNegocio {
 
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")

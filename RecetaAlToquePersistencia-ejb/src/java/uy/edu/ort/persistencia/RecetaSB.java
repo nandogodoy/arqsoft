@@ -26,6 +26,7 @@ public class RecetaSB implements RecetaSBLocal {
 
     @PersistenceContext
     EntityManager em;
+    
     UsuarioSBLocal usuarioSB;
     IngredienteSBLocal ingredienteSB;
     // Add business logic below. (Right-click in editor and choose

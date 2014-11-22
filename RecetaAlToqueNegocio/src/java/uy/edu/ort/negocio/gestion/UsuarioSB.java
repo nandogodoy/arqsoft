@@ -14,17 +14,18 @@ import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import uy.edu.ort.dominio.Usuario;
+import uy.edu.ort.persistencia.UsuarioSBLocal;
 
 /**
  *
  * @author Richard
  */
 @Stateless
-public class UsuarioSB implements uy.edu.ort.negocio.gestion.UsuarioSBLocal {
+public class UsuarioSB implements UsuarioSBNegocio {
 
     
     @EJB
-    private uy.edu.ort.persistencia.UsuarioSBLocal usuarioEJB;
+    private UsuarioSBLocal usuarioEJB;
     
     
     @Override

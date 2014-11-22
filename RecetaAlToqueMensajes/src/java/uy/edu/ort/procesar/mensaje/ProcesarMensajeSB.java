@@ -14,7 +14,7 @@ import javax.ejb.Stateless;
 import javax.jms.JMSException;
 import javax.jms.MapMessage;
 import uy.edu.ort.dominio.*;
-import uy.edu.ort.negocio.core.*;
+import uy.edu.ort.negocio.core.RecetaSBNegocio;
 /**
  *
  * @author Richard
@@ -22,7 +22,7 @@ import uy.edu.ort.negocio.core.*;
 @Stateless
 public class ProcesarMensajeSB implements ProcesarMensajeSBLocal {
     @EJB
-    RecetaSBLocal recetaSB;
+    RecetaSBNegocio recetaSB;
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")
     @Override

@@ -14,7 +14,7 @@ import uy.edu.ort.dominio.Usuario;
  * @author Richard
  */
 @Local
-public interface UsuarioSBLocal {
+public interface UsuarioSBNegocio {
     
     
     public Usuario alta(Usuario usuario);

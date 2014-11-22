@@ -13,7 +13,7 @@ import javax.ejb.Stateless;
  * @author Richard
  */
 @Stateless
-public class IngredienteSB implements IngredienteSBLocal {
+public class IngredienteSB implements IngredienteSBNegocio {
 
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")

@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package uy.edu.ort.negocio.gestion;
+package uy.edu.ort.negocio.core;
 
 import javax.ejb.Local;
 
@@ -13,6 +13,6 @@ import javax.ejb.Local;
  * @author Richard
  */
 @Local
-public interface IngredienteSBLocal {
+public interface BusquedaSBNegocio {
     
 }
