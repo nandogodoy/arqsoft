@@ -18,7 +18,7 @@ import uy.edu.ort.procesar.mensaje.ProcesarMensajeSBLocal;
  *
  * @author Richard
  */
-@MessageDriven(mappedName = "jms/SDEQueue", activationConfig = {
+@MessageDriven(mappedName = "jms/TRAQueue", activationConfig = {
     @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Queue")
 })
 public class RecibirMensajeMDB implements MessageListener {
