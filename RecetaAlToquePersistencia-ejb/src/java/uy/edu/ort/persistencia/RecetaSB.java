@@ -9,10 +9,12 @@ package uy.edu.ort.persistencia;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import uy.edu.ort.entidades.RecetaEntity;
 import uy.edu.ort.dominio.Receta;
 import uy.edu.ort.dominio.Usuario;
@@ -27,7 +29,9 @@ public class RecetaSB implements RecetaSBLocal {
     @PersistenceContext
     EntityManager em;
     
+    @EJB
     UsuarioSBLocal usuarioSB;
+    @EJB
     IngredienteSBLocal ingredienteSB;
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")
@@ -71,9 +75,16 @@ public class RecetaSB implements RecetaSBLocal {
     public RecetaEntity obtenerPorNombre(String nombre)
     {
         try{
-            return em.createNamedQuery("RecetaEntity.findByNombre",RecetaEntity.class).setParameter("nombre", nombre).getSingleResult();
+            TypedQuery<RecetaEntity> query=em.createNamedQuery("RecetaEntity.findByNombre",RecetaEntity.class);
+            query.setParameter("nombre", nombre);
+            RecetaEntity entidad=query.getSingleResult();
+            return entidad;
         }
-        catch(NoResultException nores){}
+        catch(NoResultException nores)
+        {
+            System.out.println(nores.getMessage());
+            System.out.println(nores.getCause());
+        }
         return null;
     }
     @Override
