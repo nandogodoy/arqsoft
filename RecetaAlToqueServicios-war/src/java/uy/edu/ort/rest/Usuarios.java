@@ -21,6 +21,7 @@ import javax.ws.rs.core.MediaType;
 import uy.edu.ort.dominio.Usuario;
 import uy.edu.ort.negocio.gestion.TokenInvalidoException;
 import uy.edu.ort.negocio.gestion.UsuarioSBNegocio;
+import uy.edu.ort.rest.entidades.Token;
 /**
  *
  * @author Nando
@@ -41,9 +42,7 @@ public class Usuarios {
     @Path("registro")
     public String registro (Usuario usuario) {
 	usuario = usuarioEJB.alta(usuario);
-        System.out.println("paso");
-        //return gson.toJson(usuario);
-        return "Termino";
+        return gson.toJson(usuario);
     }    
     
     @POST
@@ -60,14 +59,14 @@ public class Usuarios {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Path("logout")
-    public String logout (String token) {
+    public String logout (Token token) {
         Usuario usuario;
 	try {
-	    usuario = usuarioEJB.obtenerPorToken(token);
+	    usuario = usuarioEJB.obtenerPorToken(token.getToken());
 	    usuarioEJB.logout(usuario);
 	    return gson.toJson(usuario);
 	} catch (TokenInvalidoException ex) {
-	    Logger.getLogger(Usuarios.class.getName()).log(Level.SEVERE, null, ex);
+	    //Logger.getLogger(Usuarios.class.getName()).log(Level.SEVERE, null, ex);
 	    return gson.toJson(ex.getMessage());
 	}
     }

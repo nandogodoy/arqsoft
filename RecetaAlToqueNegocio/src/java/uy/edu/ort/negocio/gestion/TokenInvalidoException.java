@@ -6,10 +6,13 @@
 
 package uy.edu.ort.negocio.gestion;
 
+import javax.ejb.ApplicationException;
+
 /**
  *
  * @author ASUS
  */
+@ApplicationException(rollback=true) 
 public class TokenInvalidoException extends Exception {
 
     TokenInvalidoException(String el_token_expiro) {
