@@ -83,4 +83,13 @@ public class BusquedaSB implements BusquedaSBLocal {
         catch (NoResultException nores){}
         return null;
     }
+
+    @Override
+    public List<Busqueda> obtenerTop10() {
+        List<Busqueda> lista;
+        
+        
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
 }

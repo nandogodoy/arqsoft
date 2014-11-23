@@ -22,6 +22,8 @@ public class RecetaSB implements RecetaSBNegocio {
     
     @EJB
     RecetaSBLocal persistencia;
+    @EJB 
+    BusquedaSBNegocio busqueda;
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")
     @Override
@@ -34,10 +36,10 @@ public class RecetaSB implements RecetaSBNegocio {
     }
     
     @Override
-    public List<Receta> buscar(List<Ingrediente> ingredientes)
+    public List<Receta> buscar(List<Ingrediente> ingredientes,Usuario usuario)
     {
         List<Receta> resultado=persistencia.obtenerLista(ingredientes);
+        busqueda.alta(ingredientes,usuario);
         return resultado;
-    
     }
 }

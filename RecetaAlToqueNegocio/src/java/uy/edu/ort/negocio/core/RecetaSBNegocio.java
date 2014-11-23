@@ -18,7 +18,7 @@ public interface RecetaSBNegocio {
     
     void valorar(Receta receta,float valoracion);
     void alta(Receta receta,Usuario usuario);
-    List<Receta> buscar(List<Ingrediente> ingredientes);
+    List<Receta> buscar(List<Ingrediente> ingredientes,Usuario usuario);
     
     
 }

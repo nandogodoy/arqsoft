@@ -6,7 +6,10 @@
 
 package uy.edu.ort.negocio.gestion;
 
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import uy.edu.ort.dominio.Ingrediente;
+import uy.edu.ort.persistencia.IngredienteSBLocal;
 
 /**
  *
@@ -14,6 +17,14 @@ import javax.ejb.Stateless;
  */
 @Stateless
 public class IngredienteSB implements IngredienteSBNegocio {
+
+    @EJB
+    IngredienteSBLocal persistencia;
+    
+    @Override
+    public void alta(Ingrediente ingrediente) {
+        persistencia.alta(ingrediente);
+    }
 
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")

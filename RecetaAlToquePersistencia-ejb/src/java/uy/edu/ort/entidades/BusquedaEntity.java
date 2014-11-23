@@ -16,6 +16,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -42,8 +44,11 @@ public class BusquedaEntity implements Serializable {
     @ManyToOne
     private UsuarioEntity usuario;
 
-    @OneToMany
-    @ElementCollection
+    @ManyToMany
+    @JoinTable(
+      name="busquedas_ingredientes",
+      joinColumns={@JoinColumn(name="busqueda_id", referencedColumnName="ID")},
+      inverseJoinColumns={@JoinColumn(name="ingrediente_id", referencedColumnName="ID")})
     private List<IngredienteEntity> ingredientes;
 
     @Column ( name ="fecha")
