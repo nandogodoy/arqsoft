@@ -6,7 +6,11 @@
 
 package uy.edu.ort.negocio.core;
 
+import java.util.List;
 import javax.ejb.Local;
+import uy.edu.ort.dominio.Busqueda;
+import uy.edu.ort.dominio.Ingrediente;
+import uy.edu.ort.dominio.Usuario;
 
 /**
  *
@@ -14,5 +18,7 @@ import javax.ejb.Local;
  */
 @Local
 public interface BusquedaSBNegocio {
+    public void alta(List<Ingrediente> lista, Usuario ususario);
+    public List<Busqueda> top10Busquedas();
     
 }

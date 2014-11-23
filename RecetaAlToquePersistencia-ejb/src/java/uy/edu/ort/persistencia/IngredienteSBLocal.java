@@ -21,6 +21,10 @@ public interface IngredienteSBLocal {
     public void modificar(Ingrediente ingrediente);
     public void eliminar(Ingrediente ingrediente);
     
-    public Ingrediente obtenerPorNombre(String nombre);
-    public List<Ingrediente> obtenerLista(List<IngredienteEntity> ingredientes);
+    public IngredienteEntity obtenerPorNombre(String nombre);
+    public Ingrediente obtenerPorNombreDTO(String nombre);
+    
+    public List<IngredienteEntity> obtenerLista(List<Ingrediente> ingredientes);
+    public List<Ingrediente> obtenerListaDTO(List<IngredienteEntity> ingredientes);
+    
 }

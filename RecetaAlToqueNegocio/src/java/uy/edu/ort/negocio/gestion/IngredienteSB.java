@@ -23,13 +23,16 @@ public class IngredienteSB implements IngredienteSBNegocio {
     
     @Override
     public Ingrediente obtenerPorNombre(String nombre) throws IngredienteInvalidoException {
-	Ingrediente ingrediente = ingredienteEJB.obtenerPorNombre(nombre);
+	Ingrediente ingrediente = ingredienteEJB.obtenerPorNombreDTO(nombre);
 	if (ingrediente == null) {
 	    throw new IngredienteInvalidoException("No existe un ingrediente llamaado: " + ingrediente);
 	}
 	return ingrediente;
     }
-
-    // Add business logic below. (Right-click in editor and choose
-    // "Insert Code > Add Business Method")
+    
+    @Override
+    public void alta(Ingrediente ingrediente) {
+        ingredienteEJB.alta(ingrediente);
+    }
+    
 }

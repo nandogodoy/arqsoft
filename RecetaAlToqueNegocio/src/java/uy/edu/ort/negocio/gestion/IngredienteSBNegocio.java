@@ -16,6 +16,7 @@ import uy.edu.ort.dominio.Ingrediente;
 @Local
 public interface IngredienteSBNegocio {
     
-    
     public Ingrediente obtenerPorNombre(String nombre) throws IngredienteInvalidoException;
+    public void alta(Ingrediente ingrediente);
+    
 }

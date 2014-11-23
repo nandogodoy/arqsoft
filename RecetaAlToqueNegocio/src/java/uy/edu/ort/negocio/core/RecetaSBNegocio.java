@@ -6,6 +6,7 @@
 
 package uy.edu.ort.negocio.core;
 
+import java.util.List;
 import javax.ejb.Local;
 import uy.edu.ort.dominio.*;
 /**
@@ -17,5 +18,7 @@ public interface RecetaSBNegocio {
     
     void valorar(Receta receta,float valoracion);
     void alta(Receta receta,Usuario usuario);
+    List<Receta> buscar(List<Ingrediente> ingredientes,Usuario usuario);
+    
     
 }

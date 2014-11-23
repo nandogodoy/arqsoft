@@ -7,7 +7,6 @@
 package uy.edu.ort.persistencia;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -16,8 +15,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import uy.edu.ort.entidades.IngredienteEntity;
 import uy.edu.ort.dominio.Ingrediente;
-import uy.edu.ort.dominio.Usuario;
-import uy.edu.ort.entidades.UsuarioEntity;
+
 
 /**
  *
@@ -56,8 +54,21 @@ public class IngredienteSB implements IngredienteSBLocal {
             em.remove(entity);
         }
     }
+    
     @Override
-    public Ingrediente obtenerPorNombre(String nombre){
+    public IngredienteEntity obtenerPorNombre(String nombre){
+        TypedQuery<IngredienteEntity> query= em.createNamedQuery("IngredienteEntity.findByNombre", IngredienteEntity.class);
+        query.setParameter("nombre", nombre);
+        try{
+            IngredienteEntity ingrediente= query.getSingleResult();
+            return ingrediente;
+        }
+        catch(NoResultException e){}
+        return null;
+    }
+    
+    @Override
+    public Ingrediente obtenerPorNombreDTO(String nombre){
         TypedQuery<IngredienteEntity> query= em.createNamedQuery("IngredienteEntity.findByNombre", IngredienteEntity.class);
         query.setParameter("nombre", nombre);
         try{
@@ -68,11 +79,9 @@ public class IngredienteSB implements IngredienteSBLocal {
         return null;
     }
     
-    // Add business logic below. (Right-click in editor and choose
-    // "Insert Code > Add Business Method")
 
     @Override
-    public List<Ingrediente> obtenerLista(List<IngredienteEntity> ingredientes) {
+    public List<Ingrediente> obtenerListaDTO(List<IngredienteEntity> ingredientes) {
         List<Ingrediente> lista = new ArrayList();
         for (IngredienteEntity entidad : ingredientes) {
             Ingrediente ing= new Ingrediente(entidad.getNombre());
@@ -81,9 +90,18 @@ public class IngredienteSB implements IngredienteSBLocal {
         return lista;
     }
     
-    
     private Ingrediente obtenerDTO(IngredienteEntity i) {
         Ingrediente ingrediente = new Ingrediente(i.getNombre());
         return ingrediente;
+    }
+
+    @Override
+    public List<IngredienteEntity> obtenerLista(List<Ingrediente> ingredientes) {
+        List<IngredienteEntity> lista = new ArrayList();
+        for (Ingrediente ingrediente : ingredientes) {
+            IngredienteEntity ing= obtenerPorNombre(ingrediente.getNombre());
+            lista.add(ing);
+        }
+        return lista;
     }
 }

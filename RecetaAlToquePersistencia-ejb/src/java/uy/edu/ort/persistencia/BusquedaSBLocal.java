@@ -21,5 +21,7 @@ public interface BusquedaSBLocal {
     public void alta(Busqueda busqueda);
 
     public List<Busqueda> obtenerPorUsuario(String usuario);
+
+    public List<Busqueda> obtenerTop10();
     
 }
