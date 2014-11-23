@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package uy.edu.ort.recibir.mensaje;
+package uy.edu.ort.mensaje.recibir;
 
 import java.util.logging.*;
 import javax.ejb.ActivationConfigProperty;
@@ -12,7 +12,7 @@ import javax.ejb.MessageDriven;
 import javax.jms.Message;
 import javax.jms.MessageListener;
 import javax.jms.MapMessage;
-import uy.edu.ort.procesar.mensaje.ProcesarMensajeSBLocal;
+import uy.edu.ort.mensaje.procesar.ProcesarMensajeSBLocal;
 
 /**
  *
