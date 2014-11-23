@@ -116,7 +116,7 @@ public class RecetaSB implements RecetaSBLocal {
     public void valorar(Receta receta, float valoracion) {
         RecetaEntity entidad = obtenerPorNombre(receta.getNombre());
         int cantidad = entidad.getCantValoraciones();
-        float valorPrevio = entidad.getCantValoraciones();
+        float valorPrevio = entidad.getValoracion();
         float valorNuevo= (valorPrevio*cantidad + valoracion )/( cantidad + 1 );
         entidad.setValoracion(valorNuevo);
         entidad.setCantValoraciones(cantidad+1);
@@ -124,17 +124,13 @@ public class RecetaSB implements RecetaSBLocal {
     }
     
     @Override
-    public List<Receta> obtenerLista(List<Ingrediente> ingredientes)
-    {
+    public List<Receta> obtenerLista (List<Ingrediente> ingredientes) {
         List<RecetaEntity> lista = em.createNamedQuery("RecetaEntity.findAll",RecetaEntity.class).getResultList();
-        List<Receta> retorno= new ArrayList<Receta>();
-        Iterator it = lista.iterator();
-        while (it.hasNext())
-        {
-            RecetaEntity entidad = (RecetaEntity)it.next();
-            if(entidad.getIngredientes().containsAll(ingredienteSB.obtenerLista(ingredientes)))
-                retorno.add(obtenerDTO(entidad));
-        }
+        List<Receta> retorno = new ArrayList<Receta>();
+	for (RecetaEntity entidad : lista) {
+	    if(entidad.getIngredientes().containsAll(ingredienteSB.obtenerLista(ingredientes)))
+		retorno.add(obtenerDTO(entidad));
+	}
         return retorno;
     }
 }

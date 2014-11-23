@@ -47,12 +47,10 @@ public class BusquedaSB implements BusquedaSBLocal {
         entity.setFecha(new Date());
         List<IngredienteEntity> ings= new ArrayList();
         Iterator<Ingrediente> it= busqueda.getIngredientes().iterator();
-        while (it.hasNext())
-        {
-            //ings.add(ingredienteSB.obtenerPorNombre(it.next().getNombre()));
+        while (it.hasNext()) {
+            ings.add(ingredienteSB.obtenerPorNombre(it.next().getNombre()));
         }
         entity.setIngredientes(ings);
-        List<RecetaEntity> recs = new ArrayList();
         if(!em.contains(entity)){
             em.persist(entity);
         }

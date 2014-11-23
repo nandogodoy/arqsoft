@@ -32,6 +32,8 @@ import uy.edu.ort.negocio.gestion.IngredienteSBNegocio;
 import uy.edu.ort.negocio.gestion.TokenInvalidoException;
 import uy.edu.ort.negocio.gestion.UsuarioSBNegocio;
 import uy.edu.ort.rest.entidades.AltaReceta;
+import uy.edu.ort.rest.entidades.BuscarRecetas;
+import uy.edu.ort.rest.entidades.ValorarReceta;
 
 /**
  *
@@ -68,9 +70,18 @@ public class Recetas {
     @Path("busqueda")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public String busquedaRecetas() {
-        
-        return "busquedaRecetas";
+    public String busquedaRecetas(BuscarRecetas busarRecetas) {
+        try {
+	    Usuario usuario = usuarioEJB.obtenerPorToken(busarRecetas.getToken());
+	    List<Receta> recetas = recetaEJB.buscar(busarRecetas.getIngredientes(), usuario);
+	    return gson.toJson(recetas);
+	} catch (TokenInvalidoException ex) {
+	    Logger.getLogger(Recetas.class.getName()).log(Level.SEVERE, null, ex);
+	    return gson.toJson("Acceso no autorizado (token invalido)");
+	} catch (IngredienteInvalidoException ex) {
+	    Logger.getLogger(Recetas.class.getName()).log(Level.SEVERE, null, ex);
+	    return gson.toJson(ex.getMessage());
+	}
     }
     
     
@@ -110,9 +121,19 @@ public class Recetas {
     @Path("valorar")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public String valorarReceta() {
-        
-        return "valorarReceta";
+    public String valorarReceta(ValorarReceta valorarReceta) {
+        try {
+	    usuarioEJB.obtenerPorToken(valorarReceta.getToken());
+	    Receta receta = new Receta();
+	    receta.setNombre(valorarReceta.getNombre());
+	    
+	    RecetasJMS recetaJMS = new RecetasJMS();
+	    recetaJMS.valorarReceta(receta, valorarReceta.getValoracion());
+	    return gson.toJson("Receta "+receta.getNombre()+" valorada con un puntaje de "+valorarReceta.getValoracion());
+	} catch (TokenInvalidoException ex) {
+	    Logger.getLogger(Recetas.class.getName()).log(Level.SEVERE, null, ex);
+	    return gson.toJson("Acceso no autorizado (token invalido)");
+	}
     }
     
     
