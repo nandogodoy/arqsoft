@@ -16,6 +16,8 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import uy.edu.ort.entidades.IngredienteEntity;
 import uy.edu.ort.dominio.Ingrediente;
+import uy.edu.ort.dominio.Usuario;
+import uy.edu.ort.entidades.UsuarioEntity;
 
 /**
  *
@@ -55,12 +57,12 @@ public class IngredienteSB implements IngredienteSBLocal {
         }
     }
     @Override
-    public IngredienteEntity obtenerPorNombre(String nombre){
+    public Ingrediente obtenerPorNombre(String nombre){
         TypedQuery<IngredienteEntity> query= em.createNamedQuery("IngredienteEntity.findByNombre", IngredienteEntity.class);
         query.setParameter("nombre", nombre);
         try{
             IngredienteEntity ingrediente= query.getSingleResult();
-            return ingrediente;
+            return this.obtenerDTO(ingrediente);
         }
         catch(NoResultException e){}
         return null;
@@ -77,5 +79,11 @@ public class IngredienteSB implements IngredienteSBLocal {
             lista.add(ing);
         }
         return lista;
+    }
+    
+    
+    private Ingrediente obtenerDTO(IngredienteEntity i) {
+        Ingrediente ingrediente = new Ingrediente(i.getNombre());
+        return ingrediente;
     }
 }

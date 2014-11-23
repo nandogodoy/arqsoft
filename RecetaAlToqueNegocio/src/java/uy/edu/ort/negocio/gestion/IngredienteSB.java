@@ -6,7 +6,10 @@
 
 package uy.edu.ort.negocio.gestion;
 
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import uy.edu.ort.dominio.Ingrediente;
+import uy.edu.ort.persistencia.IngredienteSBLocal;
 
 /**
  *
@@ -14,6 +17,18 @@ import javax.ejb.Stateless;
  */
 @Stateless
 public class IngredienteSB implements IngredienteSBNegocio {
+
+    @EJB
+    private IngredienteSBLocal ingredienteEJB;
+    
+    @Override
+    public Ingrediente obtenerPorNombre(String nombre) throws IngredienteInvalidoException {
+	Ingrediente ingrediente = ingredienteEJB.obtenerPorNombre(nombre);
+	if (ingrediente == null) {
+	    throw new IngredienteInvalidoException("No existe un ingrediente llamaado: " + ingrediente);
+	}
+	return ingrediente;
+    }
 
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")

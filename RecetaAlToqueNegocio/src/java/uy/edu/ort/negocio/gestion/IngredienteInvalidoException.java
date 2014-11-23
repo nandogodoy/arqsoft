@@ -6,15 +6,13 @@
 
 package uy.edu.ort.negocio.gestion;
 
-import javax.ejb.ApplicationException;
-
 /**
  *
  * @author ASUS
  */
-public class TokenInvalidoException extends Exception {
+public class IngredienteInvalidoException extends Exception {
 
-    TokenInvalidoException(String el_token_expiro) {
+    IngredienteInvalidoException(String mensaje) {
 	throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

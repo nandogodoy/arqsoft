@@ -49,7 +49,7 @@ public class BusquedaSB implements BusquedaSBLocal {
         Iterator<Ingrediente> it= busqueda.getIngredientes().iterator();
         while (it.hasNext())
         {
-            ings.add(ingredienteSB.obtenerPorNombre(it.next().getNombre()));
+            //ings.add(ingredienteSB.obtenerPorNombre(it.next().getNombre()));
         }
         entity.setIngredientes(ings);
         List<RecetaEntity> recs = new ArrayList();
