@@ -76,7 +76,7 @@ public class SDEProductor {
  //Creo la MessageProducer mediante la Session 
             MessageProducer messageProducer = session.createProducer(queue);
 //Creo la TextMessage mediante la Session 
-            /*MapMessage mapMessage = session.createMapMessage();
+           MapMessage mapMessage = session.createMapMessage();
             mapMessage.setString("usuario", "mrodriguez");
             mapMessage.setString("nombre", "torta fritas");
             String procedimiento="Mezclar la harina con la grasa y la sal. Añadir la cantidad suficiente de líquido para formar una masa blanda. Dejar descansar la masa una media hora.\n" +
@@ -92,7 +92,7 @@ public class SDEProductor {
             mapMessage.setString("comando","01");
 //Envío el mensaje mediante MessageProducer 
             messageProducer.send(mapMessage);
-            */
+           
             MapMessage mapMessage2 = session.createMapMessage();
             mapMessage2.setString("comando", "02");
             mapMessage2.setString("nombre", "torta fritas");

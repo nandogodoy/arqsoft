@@ -57,14 +57,21 @@ public class UsuarioSB implements UsuarioSBNegocio {
 	return usuario.getToken();
     }
 
+     
     @Override
-    public Usuario obtenerPorToken(String token) {
-	throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Usuario obtenerPorToken(String token) throws TokenInvalidoException {
+	Date now = new Date();
+	Usuario usuario = usuarioEJB.obtenerPorToken(token);
+	if (usuario == null || usuario.getExpira().before(now)) {
+	    throw new TokenInvalidoException("El token expiro");
+	}
+	return usuario;
     }
 
     @Override
-    public void expirarToken(Usuario usuario) {
-	throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void logout(Usuario usuario) {
+	usuario.setExpira(new Date());
+	usuarioEJB.modificar(usuario);
     }
 
     private void generarToken(Usuario usuario) {

@@ -23,7 +23,7 @@ public interface UsuarioSBNegocio {
 
     
     public String login(Usuario usuario);
-    public Usuario obtenerPorToken(String token);
-    public void expirarToken(Usuario usuario);
+    public void logout(Usuario usuario);
+    public Usuario obtenerPorToken(String token) throws TokenInvalidoException;
     
 }
