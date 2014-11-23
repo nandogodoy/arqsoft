@@ -95,7 +95,7 @@ public class Recetas {
 	    
 	    RecetasJMS recetaJMS = new RecetasJMS();
 	    recetaJMS.altaReceta(usuario, receta);
-	    return gson.toJson("Receta"+receta.getNombre()+" creada exitosamente");
+	    return gson.toJson("Receta "+receta.getNombre()+" creada exitosamente");
 	} catch (TokenInvalidoException ex) {
 	    Logger.getLogger(Recetas.class.getName()).log(Level.SEVERE, null, ex);
 	    return gson.toJson("Acceso no autorizado (token invalido)");
