@@ -6,8 +6,10 @@
 
 package uy.edu.ort.negocio.core;
 
+import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import uy.edu.ort.dominio.Ingrediente;
 import uy.edu.ort.dominio.Receta;
 import uy.edu.ort.dominio.Usuario;
 import uy.edu.ort.persistencia.RecetaSBLocal;
@@ -29,5 +31,13 @@ public class RecetaSB implements RecetaSBNegocio {
     @Override
     public void alta(Receta receta,Usuario usuario){
         persistencia.alta(receta, usuario);
+    }
+    
+    @Override
+    public List<Receta> buscar(List<Ingrediente> ingredientes)
+    {
+        List<Receta> resultado=persistencia.obtenerLista(ingredientes);
+        return resultado;
+    
     }
 }

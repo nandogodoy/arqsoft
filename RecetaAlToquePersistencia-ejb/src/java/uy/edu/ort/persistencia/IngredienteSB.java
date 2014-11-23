@@ -70,10 +70,19 @@ public class IngredienteSB implements IngredienteSBLocal {
     // "Insert Code > Add Business Method")
 
     @Override
-    public List<Ingrediente> obtenerLista(List<IngredienteEntity> ingredientes) {
+    public List<Ingrediente> obtenerListaDTO(List<IngredienteEntity> ingredientes) {
         List<Ingrediente> lista = new ArrayList();
         for (IngredienteEntity entidad : ingredientes) {
             Ingrediente ing= new Ingrediente(entidad.getNombre());
+            lista.add(ing);
+        }
+        return lista;
+    }
+    @Override
+    public List<IngredienteEntity> obtenerLista(List<Ingrediente> ingredientes) {
+        List<IngredienteEntity> lista = new ArrayList();
+        for (Ingrediente ingrediente : ingredientes) {
+            IngredienteEntity ing= obtenerPorNombre(ingrediente.getNombre());
             lista.add(ing);
         }
         return lista;

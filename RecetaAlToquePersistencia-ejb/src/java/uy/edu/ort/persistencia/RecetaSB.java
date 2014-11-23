@@ -15,6 +15,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+import uy.edu.ort.dominio.Ingrediente;
 import uy.edu.ort.entidades.RecetaEntity;
 import uy.edu.ort.dominio.Receta;
 import uy.edu.ort.dominio.Usuario;
@@ -44,7 +45,7 @@ public class RecetaSB implements RecetaSBLocal {
         entity.setValoracion(receta.getValoracion());
         entity.setCantValoraciones(receta.getCantValoraciones());
         entity.setProcedimiento(receta.getProcedimiento());
-        //entity.setIngredientes(ingredienteSB.obtenerLista(receta.getIngredientes()));
+        entity.setIngredientes(ingredienteSB.obtenerLista(receta.getIngredientes()));
         
         if(!em.contains(entity)){
             em.persist(entity);
@@ -93,7 +94,7 @@ public class RecetaSB implements RecetaSBLocal {
         Receta receta= new Receta();
         receta.setNombre(entidad.getNombre());
         receta.setProcedimiento(entidad.getProcedimiento());
-        receta.setIngredientes(ingredienteSB.obtenerLista(entidad.getIngredientes()));
+        receta.setIngredientes(ingredienteSB.obtenerListaDTO(entidad.getIngredientes()));
         receta.setValoracion(entidad.getValoracion());
         return receta;
         
@@ -122,4 +123,18 @@ public class RecetaSB implements RecetaSBLocal {
         em.merge(entidad);
     }
     
+    @Override
+    public List<Receta> obtenerLista(List<Ingrediente> ingredientes)
+    {
+        List<RecetaEntity> lista = em.createNamedQuery("RecetaEntity.findAll",RecetaEntity.class).getResultList();
+        List<Receta> retorno= new ArrayList<Receta>();
+        Iterator it = lista.iterator();
+        while (it.hasNext())
+        {
+            RecetaEntity entidad = (RecetaEntity)it.next();
+            if(entidad.getIngredientes().containsAll(ingredienteSB.obtenerLista(ingredientes)))
+                retorno.add(obtenerDTO(entidad));
+        }
+        return retorno;
+    }
 }

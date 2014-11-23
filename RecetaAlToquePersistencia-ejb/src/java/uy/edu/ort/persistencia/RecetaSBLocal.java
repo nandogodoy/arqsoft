@@ -8,6 +8,7 @@ package uy.edu.ort.persistencia;
 
 import java.util.List;
 import javax.ejb.Local;
+import uy.edu.ort.dominio.Ingrediente;
 import uy.edu.ort.dominio.Receta;
 import uy.edu.ort.dominio.Usuario;
 import uy.edu.ort.entidades.RecetaEntity;
@@ -28,4 +29,6 @@ public interface RecetaSBLocal {
     public List<Receta> obtenerListaDTO(List<RecetaEntity> recetas);
 
     public void valorar(Receta receta, float valoracion);
+
+    public List<Receta> obtenerLista(List<Ingrediente> ingredientes);
 }

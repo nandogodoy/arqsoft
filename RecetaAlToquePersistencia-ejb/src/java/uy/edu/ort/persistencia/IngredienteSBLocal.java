@@ -22,5 +22,6 @@ public interface IngredienteSBLocal {
     public void eliminar(Ingrediente ingrediente);
     
     public IngredienteEntity obtenerPorNombre(String nombre);
-    public List<Ingrediente> obtenerLista(List<IngredienteEntity> ingredientes);
+    public List<Ingrediente> obtenerListaDTO(List<IngredienteEntity> ingredientes);
+    public List<IngredienteEntity> obtenerLista(List<Ingrediente> ingredientes);
 }
