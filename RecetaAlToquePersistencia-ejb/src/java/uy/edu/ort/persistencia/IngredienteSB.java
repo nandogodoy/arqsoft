@@ -12,6 +12,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import uy.edu.ort.entidades.IngredienteEntity;
 import uy.edu.ort.dominio.Ingrediente;
@@ -109,7 +110,9 @@ public class IngredienteSB implements IngredienteSBLocal {
     @Override
     public List<Ingrediente> obtenerTopBusqueda() {
         List<Ingrediente> lista = new ArrayList();
-        TypedQuery<IngredienteEntity> query = em.createNamedQuery("IngredienteEntity.topBusqueda", IngredienteEntity.class);
+        Query query = em.createNativeQuery("select i.* from ingredienteentity i, busquedas_ingredientes b where i.ID=b.ingrediente_id group by ingrediente_id order by count(1) desc", IngredienteEntity.class);
+        
+        //em.createQuery("" , IngredienteEntity.class); 
         try{
             List<IngredienteEntity> ingredientes = query.getResultList();
             lista = this.obtenerListaDTO(ingredientes);

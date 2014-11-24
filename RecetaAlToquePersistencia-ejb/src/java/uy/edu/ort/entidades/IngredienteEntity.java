@@ -23,13 +23,7 @@ import javax.persistence.NamedQuery;
 @NamedQueries({
     @NamedQuery(name = "IngredienteEntity.findAll", query = "SELECT i FROM IngredienteEntity i"),
     @NamedQuery(name = "IngredienteEntity.findById", query = "SELECT i FROM IngredienteEntity i WHERE i.id = :id"),
-    @NamedQuery(name = "IngredienteEntity.findByNombre", query = "SELECT i FROM IngredienteEntity i WHERE i.nombre = :nombre"),
-    @NamedQuery(name = "IngredienteEntity.topBusqueda", query = " SELECT i, COUNT(bi.ingrediente_id) AS cant_busquedas " +
-								" FROM IngredienteEntity i " +
-								"    INNER JOIN busquedas_ingredientes bi ON bi.ingrediente_id = i.ID " +
-								" WHERE 1" +
-								" GROUP BY i.id " +
-								" ORDER BY cant_busquedas DESC")
+    @NamedQuery(name = "IngredienteEntity.findByNombre", query = "SELECT i FROM IngredienteEntity i WHERE i.nombre = :nombre")
    })
 public class IngredienteEntity implements Serializable {
     private static final long serialVersionUID = 1L;
