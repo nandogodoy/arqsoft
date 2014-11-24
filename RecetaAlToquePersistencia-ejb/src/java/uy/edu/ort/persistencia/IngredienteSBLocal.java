@@ -27,4 +27,6 @@ public interface IngredienteSBLocal {
     public List<IngredienteEntity> obtenerLista(List<Ingrediente> ingredientes);
     public List<Ingrediente> obtenerListaDTO(List<IngredienteEntity> ingredientes);
     
+    public List<Ingrediente> obtenerTopBusqueda();
+
 }

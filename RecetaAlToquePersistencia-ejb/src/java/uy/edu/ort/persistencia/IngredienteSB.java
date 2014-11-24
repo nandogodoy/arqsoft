@@ -104,4 +104,17 @@ public class IngredienteSB implements IngredienteSBLocal {
         }
         return lista;
     }
+    
+    
+    @Override
+    public List<Ingrediente> obtenerTopBusqueda() {
+        List<Ingrediente> lista = new ArrayList();
+        TypedQuery<IngredienteEntity> query = em.createNamedQuery("IngredienteEntity.topBusqueda", IngredienteEntity.class);
+        try{
+            List<IngredienteEntity> ingredientes = query.getResultList();
+            lista = this.obtenerListaDTO(ingredientes);
+        }
+        catch(NoResultException e){}
+        return lista;
+    }
 }

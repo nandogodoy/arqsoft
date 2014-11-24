@@ -33,6 +33,7 @@ import uy.edu.ort.negocio.gestion.TokenInvalidoException;
 import uy.edu.ort.negocio.gestion.UsuarioSBNegocio;
 import uy.edu.ort.rest.entidades.AltaReceta;
 import uy.edu.ort.rest.entidades.BuscarRecetas;
+import uy.edu.ort.rest.entidades.Token;
 import uy.edu.ort.rest.entidades.ValorarReceta;
 
 /**
@@ -137,11 +138,17 @@ public class Recetas {
     }
     
     
-    @GET
-    @Path("gettop")
+    @POST
+    @Path("topbusquedas")
+    @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public String getTopBusquedas() {
-        
-        return "getTopBusquedas";
+    public String getTopBusquedas(Token token) {
+        try {
+	    usuarioEJB.obtenerPorToken(token.getToken());
+	    return gson.toJson(ingredienteEJB.obtenerTopBusqueda());
+	} catch (TokenInvalidoException ex) {
+	    Logger.getLogger(Recetas.class.getName()).log(Level.SEVERE, null, ex);
+	    return gson.toJson("Acceso no autorizado (token invalido)");
+	}
     }
 }

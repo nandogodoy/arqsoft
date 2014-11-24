@@ -6,6 +6,7 @@
 
 package uy.edu.ort.negocio.gestion;
 
+import java.util.List;
 import javax.ejb.Local;
 import uy.edu.ort.dominio.Ingrediente;
 
@@ -16,7 +17,8 @@ import uy.edu.ort.dominio.Ingrediente;
 @Local
 public interface IngredienteSBNegocio {
     
-    public Ingrediente obtenerPorNombre(String nombre) throws IngredienteInvalidoException;
     public void alta(Ingrediente ingrediente);
+    public Ingrediente obtenerPorNombre(String nombre) throws IngredienteInvalidoException;
+    public List<Ingrediente> obtenerTopBusqueda();
     
 }

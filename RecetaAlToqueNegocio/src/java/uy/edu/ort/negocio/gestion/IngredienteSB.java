@@ -6,6 +6,7 @@
 
 package uy.edu.ort.negocio.gestion;
 
+import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import uy.edu.ort.dominio.Ingrediente;
@@ -33,6 +34,12 @@ public class IngredienteSB implements IngredienteSBNegocio {
     @Override
     public void alta(Ingrediente ingrediente) {
         ingredienteEJB.alta(ingrediente);
+    }
+    
+    
+    @Override
+    public List<Ingrediente> obtenerTopBusqueda() {
+	return ingredienteEJB.obtenerTopBusqueda();
     }
     
 }
