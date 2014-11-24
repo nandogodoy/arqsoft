@@ -1,3 +1,5 @@
+Registro
+http://localhost:8080/RecetaAlToqueServicios-war/webresources/usuarios/registro
 {
   "nombre": "nando",
   "email": "f.daniel.godoy@gmail.com",
@@ -7,21 +9,36 @@
   "expira": "Nov 23, 2014 4:18:55 PM"
 }
 
+
+
 Login
+http://localhost:8080/RecetaAlToqueServicios-war/webresources/usuarios/login
 {"email": "f.daniel.godoy@gmail.com","password": "nando"}
 
 
+
 Alta receta
+http://localhost:8080/RecetaAlToqueServicios-war/webresources/recetas/publicar
 {"token":"69f0f3fe55a7575bd043c5af78e124a0", "nombre":"huevos fritos", "ingredientes":["huevo","sal"], "procedimiento":"este es el procedimiento de los huevos fritos"}
 {"token":"357985d77d2b50d934130b11d227fa11", "nombre":"Milanesas 2", "ingredientes":["carne","huevo","sal"], "procedimiento":"este es el procedimiento para hacer unas ricas milanesas 2"}
 {"token":"653187c0209dceafce8ec615dcb18a38", "nombre":"Arroz con pollo", "ingredientes":["arroz","pollo","sal"], "procedimiento":"Mezcla todo y dale con fe"}
 
 
+
 Valorar receta
+http://localhost:8080/RecetaAlToqueServicios-war/webresources/recetas/valorar
 {"token":"c166fd2f4c1dd742ef5ce35326d8fd2b", "nombre":"huevos fritos", "valoracion":"5.6"}
 {"token":"f1f66c9f6ef3cab039b0d6937e71665f", "nombre":"huevos fritos", "valoracion":"6.6"}
 
 
+
 Buscar receta
+http://localhost:8080/RecetaAlToqueServicios-war/webresources/recetas/busqueda
 {"token":"653187c0209dceafce8ec615dcb18a38", "ingredientes":["huevo","sal"]}
 {"token":"f1f66c9f6ef3cab039b0d6937e71665f", "ingredientes":["huevo","sal"]}
+
+
+
+Top busqueda ingredientes
+http://localhost:8080/RecetaAlToqueServicios-war/webresources/recetas/topbusquedas
+{"token":"c166fd2f4c1dd742ef5ce35326d8fd2b"}
