@@ -7,7 +7,9 @@
 package uy.edu.ort.persistencia;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -108,16 +110,19 @@ public class IngredienteSB implements IngredienteSBLocal {
     
     
     @Override
-    public List<Ingrediente> obtenerTopBusqueda() {
-        List<Ingrediente> lista = new ArrayList();
-        Query query = em.createNativeQuery("select i.* from ingredienteentity i, busquedas_ingredientes b where i.ID=b.ingrediente_id group by ingrediente_id order by count(1) desc", IngredienteEntity.class);
+    public Map<Long,Ingrediente> obtenerTopBusqueda() {
         
-        //em.createQuery("" , IngredienteEntity.class); 
+        Query query = em.createNativeQuery("select count(1) as cantidad,i.* from ingredienteentity i, busquedas_ingredientes b where i.ID=b.ingrediente_id group by ingrediente_id order by count(1) desc");
         try{
-            List<IngredienteEntity> ingredientes = query.getResultList();
-            lista = this.obtenerListaDTO(ingredientes);
+            List<Object[]> resultList = query.getResultList();
+            Map<Long,Ingrediente> resultMap = new HashMap<Long,Ingrediente>(resultList.size());
+            for (Object[] result : resultList){
+                Ingrediente ing= new Ingrediente((String)result[2]);                
+                resultMap.put((Long)result[0], ing);
+            }
+            return resultMap;
         }
         catch(NoResultException e){}
-        return lista;
+        return null;
     }
 }

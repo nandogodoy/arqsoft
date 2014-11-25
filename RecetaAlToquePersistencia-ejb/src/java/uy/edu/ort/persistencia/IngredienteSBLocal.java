@@ -7,6 +7,7 @@
 package uy.edu.ort.persistencia;
 
 import java.util.List;
+import java.util.Map;
 import javax.ejb.Local;
 import uy.edu.ort.dominio.Ingrediente;
 import uy.edu.ort.entidades.IngredienteEntity;
@@ -27,6 +28,6 @@ public interface IngredienteSBLocal {
     public List<IngredienteEntity> obtenerLista(List<Ingrediente> ingredientes);
     public List<Ingrediente> obtenerListaDTO(List<IngredienteEntity> ingredientes);
     
-    public List<Ingrediente> obtenerTopBusqueda();
+    public Map<Long,Ingrediente> obtenerTopBusqueda();
 
 }
