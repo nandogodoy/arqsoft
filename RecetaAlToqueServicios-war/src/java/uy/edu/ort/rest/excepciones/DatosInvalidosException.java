@@ -4,16 +4,17 @@
  * and open the template in the editor.
  */
 
-package uy.edu.ort.negocio.gestion;
+package uy.edu.ort.rest.excepciones;
+
 
 /**
  *
  * @author ASUS
  */
-public class IngredienteInvalidoException extends Exception {
+public class DatosInvalidosException extends Exception {
 
-    public IngredienteInvalidoException(String mensaje) {
-	super(mensaje);
+    public DatosInvalidosException(String message) {
+	super(message);
     }
     
 }

@@ -39,7 +39,7 @@ public class IngredienteSB implements IngredienteSBNegocio {
     
     
     @Override
-    public Map<Long,Ingrediente> obtenerTopBusqueda() {
+    public Map<String, Long> obtenerTopBusqueda() {
 	return ingredienteEJB.obtenerTopBusqueda();
     }
     

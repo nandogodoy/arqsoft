@@ -27,18 +27,18 @@ http://localhost:8080/RecetaAlToqueServicios-war/webresources/recetas/publicar
 
 Valorar receta
 http://localhost:8080/RecetaAlToqueServicios-war/webresources/recetas/valorar
-{"token":"c166fd2f4c1dd742ef5ce35326d8fd2b", "nombre":"huevos fritos", "valoracion":"5.6"}
-{"token":"f1f66c9f6ef3cab039b0d6937e71665f", "nombre":"huevos fritos", "valoracion":"6.6"}
+{"token":"5eab7fa620a1b2e162ebdeded2334ddf", "nombre":"huevos fritos", "valoracion":"5.6"}
+{"token":"b0e6726fe8db632f3f756eb79a615ab4", "nombre":"huevos fritos", "valoracion":"6.6"}
 
 
 
 Buscar receta
 http://localhost:8080/RecetaAlToqueServicios-war/webresources/recetas/busqueda
-{"token":"653187c0209dceafce8ec615dcb18a38", "ingredientes":["huevo","sal"]}
-{"token":"f1f66c9f6ef3cab039b0d6937e71665f", "ingredientes":["huevo","sal"]}
+{"token":"95ca5bbc9e8b8063b4877830f27224ad", "ingredientes":["huevo","sal"]}
+{"token":"0273d8448bd243e9ea2fe321c04fc281", "ingredientes":["huevo","sal"]}
 
 
 
 Top busqueda ingredientes
 http://localhost:8080/RecetaAlToqueServicios-war/webresources/recetas/topbusquedas
-{"token":"c166fd2f4c1dd742ef5ce35326d8fd2b"}
+{"token":"a150a79134b45add43eb7ffa1c806654"}

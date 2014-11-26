@@ -22,6 +22,7 @@ import uy.edu.ort.dominio.Usuario;
 import uy.edu.ort.negocio.gestion.TokenInvalidoException;
 import uy.edu.ort.negocio.gestion.UsuarioSBNegocio;
 import uy.edu.ort.rest.entidades.Token;
+import uy.edu.ort.rest.excepciones.DatosInvalidosException;
 /**
  *
  * @author Nando
@@ -32,17 +33,24 @@ public class Usuarios {
     
     @EJB
     private UsuarioSBNegocio usuarioEJB;
-    //private final UsuarioDummy usuarioEJB = new UsuarioDummy();
     
     private final Gson gson = new Gson();
+    
+    
     
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Path("registro")
     public String registro (Usuario usuario) {
-	usuario = usuarioEJB.alta(usuario);
-        return gson.toJson(usuario);
+	try {
+	    this.validarAltaUsuario(usuario);
+	    usuario = usuarioEJB.alta(usuario);
+	    return gson.toJson(usuario);
+	} catch (DatosInvalidosException ex) {
+	    return gson.toJson(ex.getMessage());
+	}
+	
     }    
     
     @POST
@@ -50,8 +58,13 @@ public class Usuarios {
     @Produces(MediaType.APPLICATION_JSON)
     @Path("login")
     public String login (Usuario usuario) {
-	String token = usuarioEJB.login(usuario);
-	return gson.toJson(token);
+	try {
+	    this.validarLogin(usuario);
+	    String token = usuarioEJB.login(usuario);
+	    return gson.toJson(token);
+	} catch (DatosInvalidosException ex) {
+	    return gson.toJson(ex.getMessage());
+	}
     }
     
     
@@ -62,30 +75,49 @@ public class Usuarios {
     public String logout (Token token) {
         Usuario usuario;
 	try {
+	    this.validarToken(token);
 	    usuario = usuarioEJB.obtenerPorToken(token.getToken());
 	    usuarioEJB.logout(usuario);
 	    return gson.toJson(usuario);
+	} catch (DatosInvalidosException ex) {
+	    return gson.toJson(ex.getMessage());
 	} catch (TokenInvalidoException ex) {
-	    //Logger.getLogger(Usuarios.class.getName()).log(Level.SEVERE, null, ex);
 	    return gson.toJson(ex.getMessage());
 	}
     }
     
     
     
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    @Path("validar/{token}")
-    public String validar(@PathParam("token") String token) {
-        Usuario usuario;
-	try {
-	    usuario = usuarioEJB.obtenerPorToken(token);
-	    return gson.toJson(usuario);
-	} catch (TokenInvalidoException ex) {
-	    Logger.getLogger(Usuarios.class.getName()).log(Level.SEVERE, null, ex);
-	    return gson.toJson(ex.getMessage());
+
+    
+    
+    private void validarAltaUsuario (Usuario usuario) throws DatosInvalidosException {
+	if (usuario.getEmail() == null || usuario.getEmail().equals("")) {
+	    throw new DatosInvalidosException("Debe completar el campo email");
 	}
-        
+	if (usuario.getNombre() == null || usuario.getNombre().equals("")) {
+	    throw new DatosInvalidosException("Debe completar el campo nombre");
+	}
+	if (usuario.getPassword() == null || usuario.getPassword().equals("")) {
+	    throw new DatosInvalidosException("Debe completar el campo password");
+	}
+    }
+    
+    
+    private void validarLogin (Usuario usuario) throws DatosInvalidosException {
+	if (usuario.getEmail() == null || usuario.getEmail().equals("")) {
+	    throw new DatosInvalidosException("Debe completar el campo email");
+	}
+	if (usuario.getPassword() == null || usuario.getPassword().equals("")) {
+	    throw new DatosInvalidosException("Debe completar el campo password");
+	}
+    }
+    
+    
+    private void validarToken (Token token) throws DatosInvalidosException {
+	if (token.getToken() == null || token.getToken().equals("")) {
+	    throw new DatosInvalidosException("Faltan datos para validar usuario(token)");
+	}
     }
     
 }
