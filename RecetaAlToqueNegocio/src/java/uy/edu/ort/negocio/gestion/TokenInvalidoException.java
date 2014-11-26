@@ -6,7 +6,6 @@
 
 package uy.edu.ort.negocio.gestion;
 
-import javax.ejb.ApplicationException;
 
 /**
  *
@@ -14,8 +13,8 @@ import javax.ejb.ApplicationException;
  */
 public class TokenInvalidoException extends Exception {
 
-    TokenInvalidoException(String el_token_expiro) {
-	throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    TokenInvalidoException(String message) {
+	super(message);
     }
     
 }

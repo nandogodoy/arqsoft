@@ -35,6 +35,7 @@ import uy.edu.ort.rest.entidades.AltaReceta;
 import uy.edu.ort.rest.entidades.BuscarRecetas;
 import uy.edu.ort.rest.entidades.Token;
 import uy.edu.ort.rest.entidades.ValorarReceta;
+import uy.edu.ort.rest.excepciones.DatosInvalidosException;
 
 /**
  *
@@ -54,18 +55,6 @@ public class Recetas {
     private final Gson gson = new Gson();
     
     
-    @GET
-    @Path("{id}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public String getReceta(@PathParam("id") long id) {
-	/*
-        Receta receta = recetaEJB.obtenerPorNombre("Nombre");
-        return gson.toJson(recetaEJB.obtenerDTO(receta));
-	*/
-	return "getreceta";
-    }
-    
-    
     
     @POST
     @Path("busqueda")
@@ -73,9 +62,12 @@ public class Recetas {
     @Produces(MediaType.APPLICATION_JSON)
     public String busquedaRecetas(BuscarRecetas busarRecetas) {
         try {
+	    this.validarBusquedaRecetas(busarRecetas);
 	    Usuario usuario = usuarioEJB.obtenerPorToken(busarRecetas.getToken());
 	    List<Receta> recetas = recetaEJB.buscar(busarRecetas.getIngredientes(), usuario);
 	    return gson.toJson(recetas);
+	} catch (DatosInvalidosException ex) {
+	    return gson.toJson(ex.getMessage());
 	} catch (TokenInvalidoException ex) {
 	    Logger.getLogger(Recetas.class.getName()).log(Level.SEVERE, null, ex);
 	    return gson.toJson("Acceso no autorizado (token invalido)");
@@ -92,6 +84,7 @@ public class Recetas {
     @Produces(MediaType.APPLICATION_JSON)
     public String publicarReceta(AltaReceta altaReceta) {
 	try {
+	    this.validarPublicarReceta(altaReceta);
 	    Usuario usuario = usuarioEJB.obtenerPorToken(altaReceta.getToken());
 	    Receta receta = new Receta();
 	    receta.setNombre(altaReceta.getNombre());
@@ -108,11 +101,11 @@ public class Recetas {
 	    RecetasJMS recetaJMS = new RecetasJMS();
 	    recetaJMS.altaReceta(usuario, receta);
 	    return gson.toJson("Receta "+receta.getNombre()+" creada exitosamente");
+	} catch (DatosInvalidosException ex) {
+	    return gson.toJson(ex.getMessage());
 	} catch (TokenInvalidoException ex) {
-	    Logger.getLogger(Recetas.class.getName()).log(Level.SEVERE, null, ex);
 	    return gson.toJson("Acceso no autorizado (token invalido)");
 	} catch (IngredienteInvalidoException ex) {
-	    Logger.getLogger(Recetas.class.getName()).log(Level.SEVERE, null, ex);
 	    return gson.toJson(ex.getMessage());
 	}
     }
@@ -124,6 +117,7 @@ public class Recetas {
     @Produces(MediaType.APPLICATION_JSON)
     public String valorarReceta(ValorarReceta valorarReceta) {
         try {
+	    this.validarValorarReceta(valorarReceta);
 	    usuarioEJB.obtenerPorToken(valorarReceta.getToken());
 	    Receta receta = new Receta();
 	    receta.setNombre(valorarReceta.getNombre());
@@ -131,8 +125,9 @@ public class Recetas {
 	    RecetasJMS recetaJMS = new RecetasJMS();
 	    recetaJMS.valorarReceta(receta, valorarReceta.getValoracion());
 	    return gson.toJson("Receta "+receta.getNombre()+" valorada con un puntaje de "+valorarReceta.getValoracion());
+	} catch (DatosInvalidosException ex) {
+	    return gson.toJson(ex.getMessage());
 	} catch (TokenInvalidoException ex) {
-	    Logger.getLogger(Recetas.class.getName()).log(Level.SEVERE, null, ex);
 	    return gson.toJson("Acceso no autorizado (token invalido)");
 	}
     }
@@ -144,11 +139,65 @@ public class Recetas {
     @Produces(MediaType.APPLICATION_JSON)
     public String getTopBusquedas(Token token) {
         try {
+	    this.validarToken(token);
 	    usuarioEJB.obtenerPorToken(token.getToken());
 	    return gson.toJson(ingredienteEJB.obtenerTopBusqueda());
+	} catch (DatosInvalidosException ex) {
+	    return gson.toJson(ex.getMessage());
 	} catch (TokenInvalidoException ex) {
-	    Logger.getLogger(Recetas.class.getName()).log(Level.SEVERE, null, ex);
 	    return gson.toJson("Acceso no autorizado (token invalido)");
 	}
     }
+    
+    
+    
+    /////////////////////////////////////////////////
+    //////// FUNCIONES DE VALIDACION ////////////////
+    /////////////////////////////////////////////////
+    
+    private void validarPublicarReceta (AltaReceta altaReceta) throws DatosInvalidosException {
+	if (altaReceta.getToken() == null || altaReceta.getToken().equals("")) {
+	    throw new DatosInvalidosException("Faltan datos para validar usuario(token)");
+	}
+	if (altaReceta.getNombre() == null || altaReceta.getNombre().equals("")) {
+	    throw new DatosInvalidosException("Debe completar el campo nombre");
+	}
+	if (altaReceta.getProcedimiento() == null || altaReceta.getProcedimiento().equals("")) {
+	    throw new DatosInvalidosException("Debe completar el campo procedimiento");
+	}
+	if (altaReceta.getIngredientes().isEmpty()) {
+	    throw new DatosInvalidosException("La receta debe contener al menos un ingrediente");
+	}
+    }
+    
+    
+    private void validarBusquedaRecetas (BuscarRecetas buscarRecetas) throws DatosInvalidosException {
+	if (buscarRecetas.getToken() == null || buscarRecetas.getToken().equals("")) {
+	    throw new DatosInvalidosException("Faltan datos para validar usuario(token)");
+	}
+	if (buscarRecetas.getIngredientes().isEmpty()) {
+	    throw new DatosInvalidosException("Debe ingresar al menos un ingrediente");
+	}
+    }
+    
+    
+    private void validarValorarReceta(ValorarReceta valorarReceta) throws DatosInvalidosException {
+	if (valorarReceta.getToken() == null || valorarReceta.getToken().equals("")) {
+	    throw new DatosInvalidosException("Faltan datos para validar usuario(token)");
+	}
+	if (valorarReceta.getNombre() == null || valorarReceta.getNombre().equals("")) {
+	    throw new DatosInvalidosException("Debe ingresar el nombre de la receta a valorar");
+	}
+	if (valorarReceta.getValoracion() == 0) {
+	    throw new DatosInvalidosException("La valoracion debe ser distinta de cero");
+	}
+    }
+    
+    
+    private void validarToken (Token token) throws DatosInvalidosException {
+	if (token.getToken() == null || token.getToken().equals("")) {
+	    throw new DatosInvalidosException("Faltan datos para validar usuario(token)");
+	}
+    }
+    
 }
