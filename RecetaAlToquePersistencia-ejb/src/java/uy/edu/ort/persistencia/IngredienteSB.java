@@ -110,15 +110,16 @@ public class IngredienteSB implements IngredienteSBLocal {
     
     
     @Override
-    public Map<Long,Ingrediente> obtenerTopBusqueda() {
+    public Map<String, Long> obtenerTopBusqueda() {
         
         Query query = em.createNativeQuery("select count(1) as cantidad,i.* from ingredienteentity i, busquedas_ingredientes b where i.ID=b.ingrediente_id group by ingrediente_id order by count(1) desc");
         try{
             List<Object[]> resultList = query.getResultList();
-            Map<Long,Ingrediente> resultMap = new HashMap<Long,Ingrediente>(resultList.size());
+            Map<String, Long> resultMap = new HashMap<String, Long>(resultList.size());
             for (Object[] result : resultList){
-                Ingrediente ing= new Ingrediente((String)result[2]);                
-                resultMap.put((Long)result[0], ing);
+                //Ingrediente ing= new Ingrediente((String)result[2]);
+		//Ingrediente ing= new Ingrediente((String)result[2]);
+                resultMap.put((String)result[2], (Long)result[0]);
             }
             return resultMap;
         }

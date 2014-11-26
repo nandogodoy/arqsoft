@@ -28,6 +28,6 @@ public interface IngredienteSBLocal {
     public List<IngredienteEntity> obtenerLista(List<Ingrediente> ingredientes);
     public List<Ingrediente> obtenerListaDTO(List<IngredienteEntity> ingredientes);
     
-    public Map<Long,Ingrediente> obtenerTopBusqueda();
+    public Map<String, Long> obtenerTopBusqueda();
 
 }

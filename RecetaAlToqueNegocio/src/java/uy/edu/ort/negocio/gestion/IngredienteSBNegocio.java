@@ -20,6 +20,6 @@ public interface IngredienteSBNegocio {
     
     public void alta(Ingrediente ingrediente);
     public Ingrediente obtenerPorNombre(String nombre) throws IngredienteInvalidoException;
-    public Map<Long,Ingrediente> obtenerTopBusqueda();
+    public Map<String, Long> obtenerTopBusqueda();
     
 }
