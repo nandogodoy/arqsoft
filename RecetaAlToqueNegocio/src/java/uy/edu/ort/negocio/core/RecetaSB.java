@@ -15,6 +15,7 @@ import uy.edu.ort.dominio.Receta;
 import uy.edu.ort.dominio.Usuario;
 import uy.edu.ort.negocio.gestion.IngredienteInvalidoException;
 import uy.edu.ort.negocio.gestion.IngredienteSBNegocio;
+import uy.edu.ort.negocio.gestion.UsuarioSBNegocio;
 import uy.edu.ort.persistencia.RecetaSBLocal;
 /**
  *
@@ -29,6 +30,8 @@ public class RecetaSB implements RecetaSBNegocio {
     BusquedaSBNegocio busqueda;
     @EJB 
     IngredienteSBNegocio ingredienteEJB;
+    @EJB
+    UsuarioSBNegocio usuarioEJB;
     
     @Override
     public void valorar(Receta receta,float valoracion){

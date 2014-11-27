@@ -18,6 +18,7 @@ public class Usuario {
     private String email;
     private String password;
     private float valoracion;
+    private int cantValoraciones;
     private String token;
     private Date expira;
     
@@ -68,6 +69,14 @@ public class Usuario {
 
     public void setExpira(Date expira) {
         this.expira = expira;
+    }
+
+    public int getCantValoraciones() {
+        return cantValoraciones;
+    }
+
+    public void setCantValoraciones(int cantValoraciones) {
+        this.cantValoraciones = cantValoraciones;
     }
     
     

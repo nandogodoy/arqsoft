@@ -19,6 +19,7 @@ import uy.edu.ort.dominio.Ingrediente;
 import uy.edu.ort.entidades.RecetaEntity;
 import uy.edu.ort.dominio.Receta;
 import uy.edu.ort.dominio.Usuario;
+import uy.edu.ort.entidades.UsuarioEntity;
 
 /**
  *
@@ -120,6 +121,14 @@ public class RecetaSB implements RecetaSBLocal {
         float valorNuevo= (valorPrevio*cantidad + valoracion )/( cantidad + 1 );
         entidad.setValoracion(valorNuevo);
         entidad.setCantValoraciones(cantidad+1);
+        
+        UsuarioEntity usuario=entidad.getUsuario();
+        int cant= usuario.getCantValoraciones();
+        float valorUsuPrevio=usuario.getValoracion();
+        float valorUsuNuevo=(valorUsuPrevio*cant + valoracion)/(cant + 1);
+        usuario.setValoracion(valorUsuNuevo);
+        usuario.setCantValoraciones(cant+1);
+        entidad.setUsuario(usuario);
         em.merge(entidad);
     }
     

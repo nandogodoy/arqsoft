@@ -55,6 +55,9 @@ public class UsuarioEntity implements Serializable {
     @Column(name="valoracion")
     private float valoracion;
     
+    @Column (name="cantvaloraciones")
+    private int cantValoraciones;
+    
     @OneToMany(mappedBy="UsuarioEntity")
     @ElementCollection
     private List<RecetaEntity> recetas;
@@ -105,7 +108,13 @@ public class UsuarioEntity implements Serializable {
     public void setEmail(String email) {
         this.email = email;
     }
+public int getCantValoraciones() {
+        return cantValoraciones;
+    }
 
+    public void setCantValoraciones(int cantValoraciones) {
+        this.cantValoraciones = cantValoraciones;
+    }
     public String getPassword() {
         return password;
     }

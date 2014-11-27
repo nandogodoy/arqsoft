@@ -163,5 +163,6 @@ public class UsuarioSB implements UsuarioSBLocal {
     public void limpiarToken(String email) {
 	// Borro el token del usuario
     }
+
     
 }

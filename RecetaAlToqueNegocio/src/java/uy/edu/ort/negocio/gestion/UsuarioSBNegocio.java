@@ -7,6 +7,7 @@
 package uy.edu.ort.negocio.gestion;
 
 import javax.ejb.Local;
+import uy.edu.ort.dominio.Receta;
 import uy.edu.ort.dominio.Usuario;
 
 /**

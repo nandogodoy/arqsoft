@@ -14,6 +14,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import uy.edu.ort.dominio.Receta;
 import uy.edu.ort.dominio.Usuario;
 import uy.edu.ort.persistencia.UsuarioSBLocal;
 
@@ -114,6 +115,7 @@ public class UsuarioSB implements UsuarioSBNegocio {
         }
         return digest;
     }
+
 
     
 }
