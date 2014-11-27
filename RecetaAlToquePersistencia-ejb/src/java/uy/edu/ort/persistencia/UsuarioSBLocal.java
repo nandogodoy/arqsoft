@@ -16,12 +16,9 @@ import uy.edu.ort.dominio.Usuario;
 import uy.edu.ort.entidades.UsuarioEntity;
 @Local
 public interface UsuarioSBLocal {
-<<<<<<< HEAD
+
     public void alta(Usuario usuario) throws UniqueConstraintException;
-=======
-    
-    public void alta(Usuario usuario);
->>>>>>> 69fe49c817a406d4c5686962a75f895c031cf730
+
     public void eliminar(Usuario usuario);
     public void modificar(Usuario usuario);
     

@@ -37,16 +37,7 @@ public class UsuarioSB implements UsuarioSBNegocio {
     public Usuario alta(Usuario usuario) throws DatosDuplicadosException{
 	this.encriptarPassword(usuario);
 	this.generarToken(usuario);
-<<<<<<< HEAD
-        try {
-            usuarioEJB.alta(usuario);
-        } catch (UniqueConstraintException ex) {
-            Logger.getLogger(UsuarioSB.class.getName()).log(Level.SEVERE, null, ex);
-            return null;
-        }
-=======
 	Usuario usuarioNombre = usuarioEJB.obtenerPorNombreDTO(usuario.getNombre());
-	
 	if (usuarioNombre != null) {
 	    throw new DatosDuplicadosException("Ya existe un usuario con ese nombre");
 	}
@@ -54,10 +45,15 @@ public class UsuarioSB implements UsuarioSBNegocio {
 	if (usuarioEmail != null) {
 	    throw new DatosDuplicadosException("Ya existe un usuario con ese email");
 	}
-	usuarioEJB.alta(usuario);
+        try {
+            usuarioEJB.alta(usuario);
+        } catch (UniqueConstraintException ex) {
+            Logger.getLogger(UsuarioSB.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+
 	this.actualizarExpira(usuario);
 	usuarioEJB.modificar(usuario);
->>>>>>> 69fe49c817a406d4c5686962a75f895c031cf730
 	return usuario;
     }
 

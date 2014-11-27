@@ -20,11 +20,8 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
-<<<<<<< HEAD
 import javax.persistence.PersistenceException;
-=======
 import javax.persistence.Query;
->>>>>>> 69fe49c817a406d4c5686962a75f895c031cf730
 import javax.persistence.TypedQuery;
 import uy.edu.ort.dominio.Receta;
 import uy.edu.ort.dominio.Usuario;

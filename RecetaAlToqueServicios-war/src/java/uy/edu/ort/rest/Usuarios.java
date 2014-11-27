@@ -46,17 +46,13 @@ public class Usuarios {
 	try {
 	    this.validarAltaUsuario(usuario);
 	    usuario = usuarioEJB.alta(usuario);
-<<<<<<< HEAD
             if(usuario!=null)
                 return gson.toJson(usuario);
             else{
                 return gson.toJson("Nombre de usuario o email ya existente");
             }
-=======
-	    return gson.toJson(usuario);
 	} catch (DatosDuplicadosException ex) {
 	    return gson.toJson(ex.getMessage());
->>>>>>> 69fe49c817a406d4c5686962a75f895c031cf730
 	} catch (DatosInvalidosException ex) {
 	    return gson.toJson(ex.getMessage());
 	}
