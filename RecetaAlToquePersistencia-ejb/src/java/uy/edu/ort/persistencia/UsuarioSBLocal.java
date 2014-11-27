@@ -6,6 +6,7 @@
 
 package uy.edu.ort.persistencia;
 
+import java.util.List;
 import javax.ejb.Local;
 import uy.edu.ort.dominio.Usuario;
 /**
@@ -27,5 +28,7 @@ public interface UsuarioSBLocal {
     public String generarToken(Usuario usuario);
     public void limpiarToken(String email);
     public Usuario obtenerPorToken(String token);
+    
+    public List<Usuario> top10Valorados();
     
 }

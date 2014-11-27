@@ -87,8 +87,27 @@ public class Usuarios {
     }
     
     
+    @POST
+    @Path("topvalorados")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getTopValorados(Token token) {
+        try {
+	    this.validarToken(token);
+	    usuarioEJB.obtenerPorToken(token.getToken());
+	    return gson.toJson(usuarioEJB.top10Valorados());
+	} catch (DatosInvalidosException ex) {
+	    return gson.toJson(ex.getMessage());
+	} catch (TokenInvalidoException ex) {
+	    return gson.toJson("Acceso no autorizado (token invalido)");
+	}
+    }
     
-
+    
+    
+    /////////////////////////////////////////////////
+    //////// FUNCIONES DE VALIDACION ////////////////
+    /////////////////////////////////////////////////
     
     
     private void validarAltaUsuario (Usuario usuario) throws DatosInvalidosException {

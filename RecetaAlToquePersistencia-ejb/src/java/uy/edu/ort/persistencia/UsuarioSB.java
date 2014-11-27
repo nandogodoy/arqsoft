@@ -8,14 +8,19 @@ package uy.edu.ort.persistencia;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import uy.edu.ort.dominio.Receta;
 import uy.edu.ort.dominio.Usuario;
@@ -164,5 +169,19 @@ public class UsuarioSB implements UsuarioSBLocal {
 	// Borro el token del usuario
     }
 
-    
+    @Override
+    public List<Usuario> top10Valorados() {
+	ArrayList<Usuario> listaUsuarios = new ArrayList<Usuario>();
+	//Query query = em.createNativeQuery("SELECT u FROM usuarioentity i WHERE 1 ORDER BY u.valoracion DESC LIMIT 10");
+	TypedQuery<UsuarioEntity> query= em.createNamedQuery("UsuarioEntity.topValorados", UsuarioEntity.class);
+        try{
+            List<UsuarioEntity> resultList = query.setMaxResults(10).getResultList();
+            for (UsuarioEntity usuarioEntity : resultList){
+                listaUsuarios.add(this.obtenerDTO(usuarioEntity));
+            }
+            return listaUsuarios;
+        }
+        catch(NoResultException e){}
+	return new ArrayList<Usuario>();
+    }
 }

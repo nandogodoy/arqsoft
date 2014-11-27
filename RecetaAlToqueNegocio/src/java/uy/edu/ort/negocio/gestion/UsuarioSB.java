@@ -10,10 +10,12 @@ import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import uy.edu.ort.dominio.Busqueda;
 import uy.edu.ort.dominio.Receta;
 import uy.edu.ort.dominio.Usuario;
 import uy.edu.ort.persistencia.UsuarioSBLocal;
@@ -75,6 +77,14 @@ public class UsuarioSB implements UsuarioSBNegocio {
 	usuarioEJB.modificar(usuario);
     }
 
+    
+    @Override
+    public List<Usuario> top10Valorados() {
+        List<Usuario> lista = usuarioEJB.top10Valorados();
+        return lista;
+    }
+    
+    
     private void generarToken(Usuario usuario) {
 	long now = (new Date()).getTime();
         String generador = "Tu r3c3ta" + usuario.getEmail() + now;
