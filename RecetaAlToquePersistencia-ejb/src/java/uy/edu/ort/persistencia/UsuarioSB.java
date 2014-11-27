@@ -16,6 +16,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 import uy.edu.ort.dominio.Receta;
 import uy.edu.ort.dominio.Usuario;
@@ -34,7 +35,7 @@ public class UsuarioSB implements UsuarioSBLocal {
     RecetaSBLocal recetaSB;
     
     @Override
-    public void alta(Usuario usuario) {
+    public void alta(Usuario usuario) throws UniqueConstraintException{
         UsuarioEntity entity= new UsuarioEntity();
         entity.setNombre(usuario.getNombre());
         entity.setEmail(usuario.getEmail());
@@ -42,7 +43,14 @@ public class UsuarioSB implements UsuarioSBLocal {
         entity.setToken(usuario.getToken());
         entity.setExpira(usuario.getExpira());
         if(!em.contains(entity)){
-            em.persist(entity);        
+            try{
+                em.persist(entity);     
+                em.flush();
+            }
+            catch (PersistenceException e)
+            {
+                throw new UniqueConstraintException("Nombre de usuario o email ya utilizados");
+            }
         }
     }
 

@@ -16,6 +16,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import uy.edu.ort.dominio.Receta;
 import uy.edu.ort.dominio.Usuario;
+import uy.edu.ort.persistencia.UniqueConstraintException;
 import uy.edu.ort.persistencia.UsuarioSBLocal;
 
 /**
@@ -34,7 +35,12 @@ public class UsuarioSB implements UsuarioSBNegocio {
     public Usuario alta(Usuario usuario) {
 	this.encriptarPassword(usuario);
 	this.generarToken(usuario);
-	usuarioEJB.alta(usuario);
+        try {
+            usuarioEJB.alta(usuario);
+        } catch (UniqueConstraintException ex) {
+            Logger.getLogger(UsuarioSB.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
 	return usuario;
     }
 

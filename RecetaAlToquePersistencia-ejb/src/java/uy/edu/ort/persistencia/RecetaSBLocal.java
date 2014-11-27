@@ -18,7 +18,7 @@ import uy.edu.ort.entidades.RecetaEntity;
  */
 @Local
 public interface RecetaSBLocal {
-    public void alta(Receta receta, Usuario usuario);
+    public void alta(Receta receta, Usuario usuario) throws UniqueConstraintException;
 
     public void modificar(Receta receta);
     public void eliminar(Receta receta);

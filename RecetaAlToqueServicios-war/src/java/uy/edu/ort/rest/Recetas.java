@@ -35,7 +35,6 @@ import uy.edu.ort.rest.entidades.AltaReceta;
 import uy.edu.ort.rest.entidades.BuscarRecetas;
 import uy.edu.ort.rest.entidades.Token;
 import uy.edu.ort.rest.entidades.ValorarReceta;
-import uy.edu.ort.rest.excepciones.DatosInvalidosException;
 
 /**
  *

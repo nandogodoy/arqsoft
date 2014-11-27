@@ -41,7 +41,7 @@ public class RecetaEntity implements Serializable {
     @ManyToOne
     private UsuarioEntity usuario;
     
-    @Column (name="nombre")
+    @Column (name="nombre", unique=true)
     private String nombre;
     
     @Column(name="valoracion")

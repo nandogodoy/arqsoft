@@ -22,7 +22,6 @@ import uy.edu.ort.dominio.Usuario;
 import uy.edu.ort.negocio.gestion.TokenInvalidoException;
 import uy.edu.ort.negocio.gestion.UsuarioSBNegocio;
 import uy.edu.ort.rest.entidades.Token;
-import uy.edu.ort.rest.excepciones.DatosInvalidosException;
 /**
  *
  * @author Nando
@@ -46,7 +45,11 @@ public class Usuarios {
 	try {
 	    this.validarAltaUsuario(usuario);
 	    usuario = usuarioEJB.alta(usuario);
-	    return gson.toJson(usuario);
+            if(usuario!=null)
+                return gson.toJson(usuario);
+            else{
+                return gson.toJson("Nombre de usuario o email ya existente");
+            }
 	} catch (DatosInvalidosException ex) {
 	    return gson.toJson(ex.getMessage());
 	}

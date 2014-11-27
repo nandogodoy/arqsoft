@@ -28,6 +28,7 @@ import javax.validation.constraints.NotNull;
  * @author Richard
  */
 @Entity
+
 @NamedQueries({
     @NamedQuery(name = "UsuarioEntity.findAll", query = "SELECT u FROM UsuarioEntity u"),
     @NamedQuery(name = "UsuarioEntity.findById", query = "SELECT u FROM UsuarioEntity u WHERE u.id = :id"),
@@ -42,11 +43,11 @@ public class UsuarioEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     
-    @Column(name="nombre") 
+    @Column(name="nombre", unique=true) 
     @NotNull
     private String nombre;
     
-    @Column(name="email")
+    @Column(name="email", unique=true) 
     private String email;
     
     @Column(name="password")

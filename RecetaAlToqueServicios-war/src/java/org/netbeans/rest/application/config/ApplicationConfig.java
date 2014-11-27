@@ -31,7 +31,6 @@ public class ApplicationConfig extends Application {
      */
     private void addRestResourceClasses(Set<Class<?>> resources) {
         resources.add(org.netbeans.rest.application.config.GenericResource.class);
-        resources.add(uy.edu.ort.rest.Prueba.class);
         resources.add(uy.edu.ort.rest.Recetas.class);
         resources.add(uy.edu.ort.rest.Usuarios.class);
     }

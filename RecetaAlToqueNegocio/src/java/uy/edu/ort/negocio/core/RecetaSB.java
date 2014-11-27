@@ -8,6 +8,8 @@ package uy.edu.ort.negocio.core;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import uy.edu.ort.dominio.Ingrediente;
@@ -17,6 +19,7 @@ import uy.edu.ort.negocio.gestion.IngredienteInvalidoException;
 import uy.edu.ort.negocio.gestion.IngredienteSBNegocio;
 import uy.edu.ort.negocio.gestion.UsuarioSBNegocio;
 import uy.edu.ort.persistencia.RecetaSBLocal;
+import uy.edu.ort.persistencia.UniqueConstraintException;
 /**
  *
  * @author Richard
@@ -39,7 +42,11 @@ public class RecetaSB implements RecetaSBNegocio {
     }
     @Override
     public void alta(Receta receta,Usuario usuario){
-        persistencia.alta(receta, usuario);
+        try {
+            persistencia.alta(receta, usuario);
+        } catch (UniqueConstraintException ex) {
+            Logger.getLogger(RecetaSB.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     @Override

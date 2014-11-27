@@ -31,7 +31,7 @@ public class IngredienteEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column (name="nombre")
+    @Column (name="nombre", unique=true)
     private String nombre;
     
     public Long getId() {

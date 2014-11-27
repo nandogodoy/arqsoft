@@ -14,6 +14,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 import uy.edu.ort.dominio.Ingrediente;
 import uy.edu.ort.entidades.RecetaEntity;
@@ -39,7 +40,7 @@ public class RecetaSB implements RecetaSBLocal {
     // "Insert Code > Add Business Method")
 
     @Override
-    public void alta(Receta receta,Usuario usuario) {
+    public void alta(Receta receta,Usuario usuario) throws UniqueConstraintException{
         RecetaEntity entity= new RecetaEntity();
         entity.setNombre(receta.getNombre());
         entity.setUsuario(usuarioSB.obtenerPorNombre(usuario.getNombre()));
@@ -49,7 +50,14 @@ public class RecetaSB implements RecetaSBLocal {
         entity.setIngredientes(ingredienteSB.obtenerLista(receta.getIngredientes()));
         
         if(!em.contains(entity)){
-            em.persist(entity);
+            try{
+                em.persist(entity);     
+                em.flush();
+            }
+            catch (PersistenceException e)
+            {
+                throw new UniqueConstraintException("Nombre de usuario o email ya utilizados");
+            }
         }
     }
 
