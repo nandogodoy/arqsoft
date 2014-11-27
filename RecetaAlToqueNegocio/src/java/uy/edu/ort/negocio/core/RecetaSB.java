@@ -60,4 +60,9 @@ public class RecetaSB implements RecetaSBNegocio {
         busqueda.alta(listaIngredientes, usuario);
         return resultado;
     }
+
+    @Override
+    public Receta obtenerPorNombre(String nombre) {
+        return persistencia.obtenerDTO(persistencia.obtenerPorNombre(nombre));
+    }
 }

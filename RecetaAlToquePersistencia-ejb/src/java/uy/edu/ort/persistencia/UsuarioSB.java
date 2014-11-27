@@ -92,8 +92,8 @@ public class UsuarioSB implements UsuarioSBLocal {
             UsuarioEntity usuario = query.getSingleResult();
             return usuario;
         }
-        catch(Exception e){}
-        return null;
+        catch(Exception e){return null;}
+        
     }
     
     

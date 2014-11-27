@@ -78,8 +78,8 @@ public class BusquedaSB implements BusquedaSBLocal {
             }
             return lista;
         }
-        catch (NoResultException nores){}
-        return null;
+        catch (NoResultException nores){return null;}
+        
     }
 
     @Override

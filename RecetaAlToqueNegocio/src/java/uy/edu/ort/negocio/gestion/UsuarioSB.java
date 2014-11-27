@@ -47,14 +47,13 @@ public class UsuarioSB implements UsuarioSBNegocio {
 	}
         try {
             usuarioEJB.alta(usuario);
+            this.actualizarExpira(usuario);
+            usuarioEJB.modificar(usuario);
+            return usuario;
         } catch (UniqueConstraintException ex) {
             Logger.getLogger(UsuarioSB.class.getName()).log(Level.SEVERE, null, ex);
             return null;
-        }
-
-	this.actualizarExpira(usuario);
-	usuarioEJB.modificar(usuario);
-	return usuario;
+        }	
     }
 
     @Override

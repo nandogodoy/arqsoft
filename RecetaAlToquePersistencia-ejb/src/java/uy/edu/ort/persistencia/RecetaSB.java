@@ -92,21 +92,22 @@ public class RecetaSB implements RecetaSBLocal {
         }
         catch(NoResultException nores)
         {
-            System.out.println(nores.getMessage());
-            System.out.println(nores.getCause());
+            return null;
         }
-        return null;
+
     }
     @Override
     public Receta obtenerDTO(RecetaEntity entidad)
     {
-        Receta receta= new Receta();
-        receta.setNombre(entidad.getNombre());
-        receta.setProcedimiento(entidad.getProcedimiento());
-        receta.setIngredientes(ingredienteSB.obtenerListaDTO(entidad.getIngredientes()));
-        receta.setValoracion(entidad.getValoracion());
-        return receta;
-        
+        if(entidad!=null){
+            Receta receta= new Receta();
+            receta.setNombre(entidad.getNombre());
+            receta.setProcedimiento(entidad.getProcedimiento());
+            receta.setIngredientes(ingredienteSB.obtenerListaDTO(entidad.getIngredientes()));
+            receta.setValoracion(entidad.getValoracion());
+            return receta;
+        }
+        return null;
     }
 
     @Override

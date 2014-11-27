@@ -20,6 +20,8 @@ public interface RecetaSBNegocio {
     void valorar(Receta receta,float valoracion);
     void alta(Receta receta,Usuario usuario);
     List<Receta> buscar (List<String> ingredientes,Usuario usuario) throws IngredienteInvalidoException ;
+
+    public Object obtenerPorNombre(String nombre);
     
     
 }

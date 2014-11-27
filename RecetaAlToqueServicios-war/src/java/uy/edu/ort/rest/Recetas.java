@@ -13,10 +13,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import uy.edu.ort.dominio.Ingrediente;
@@ -85,21 +83,29 @@ public class Recetas {
 	try {
 	    this.validarPublicarReceta(altaReceta);
 	    Usuario usuario = usuarioEJB.obtenerPorToken(altaReceta.getToken());
-	    Receta receta = new Receta();
-	    receta.setNombre(altaReceta.getNombre());
-	    receta.setProcedimiento(altaReceta.getProcedimiento());
 	    
-	    Ingrediente ingr = null;
-	    List<Ingrediente> ingredientes = new ArrayList<Ingrediente>();
-	    for (String ingrediente: altaReceta.getIngredientes()) {
-		ingr = ingredienteEJB.obtenerPorNombre(ingrediente);
-		ingredientes.add(ingr);
-	    }
-	    receta.setIngredientes(ingredientes);
-	    
-	    RecetasJMS recetaJMS = new RecetasJMS();
-	    recetaJMS.altaReceta(usuario, receta);
-	    return gson.toJson("Receta "+receta.getNombre()+" creada exitosamente");
+	    if(recetaEJB.obtenerPorNombre(altaReceta.getNombre())==null){
+                Receta receta = new Receta();
+                receta.setNombre(altaReceta.getNombre());
+                receta.setProcedimiento(altaReceta.getProcedimiento());
+
+                Ingrediente ingr = null;
+                List<Ingrediente> ingredientes = new ArrayList<Ingrediente>();
+                for (String ingrediente: altaReceta.getIngredientes()) {
+                    ingr = ingredienteEJB.obtenerPorNombre(ingrediente);
+                    ingredientes.add(ingr);
+                }
+                receta.setIngredientes(ingredientes);
+
+                RecetasJMS recetaJMS = new RecetasJMS();
+                recetaJMS.altaReceta(usuario, receta);
+                return gson.toJson("Receta "+receta.getNombre()+" creada exitosamente");
+            }
+            else
+            {
+                return gson.toJson("Ya existe una receta con ese nombre, cambie el nombre y vuelva a intentar");
+            
+            }
 	} catch (DatosInvalidosException ex) {
 	    return gson.toJson(ex.getMessage());
 	} catch (TokenInvalidoException ex) {

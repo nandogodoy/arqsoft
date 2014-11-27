@@ -66,8 +66,8 @@ public class IngredienteSB implements IngredienteSBLocal {
             IngredienteEntity ingrediente= query.getSingleResult();
             return ingrediente;
         }
-        catch(NoResultException e){}
-        return null;
+        catch(NoResultException e){return null;}
+        
     }
     
     @Override
@@ -78,8 +78,8 @@ public class IngredienteSB implements IngredienteSBLocal {
             IngredienteEntity ingrediente= query.getSingleResult();
             return this.obtenerDTO(ingrediente);
         }
-        catch(NoResultException e){}
-        return null;
+        catch(NoResultException e){return null;}
+        
     }
     
 
@@ -123,7 +123,7 @@ public class IngredienteSB implements IngredienteSBLocal {
             }
             return resultMap;
         }
-        catch(NoResultException e){}
-        return null;
+        catch(NoResultException e){return null;}
+        
     }
 }
