@@ -27,7 +27,7 @@ public class IngredienteSB implements IngredienteSBNegocio {
     public Ingrediente obtenerPorNombre(String nombre) throws IngredienteInvalidoException {
 	Ingrediente ingrediente = ingredienteEJB.obtenerPorNombreDTO(nombre);
 	if (ingrediente == null) {
-	    throw new IngredienteInvalidoException("No existe un ingrediente llamaado: " + ingrediente);
+	    throw new IngredienteInvalidoException("No existe un ingrediente llamado: " + nombre);
 	}
 	return ingrediente;
     }

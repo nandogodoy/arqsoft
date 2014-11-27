@@ -3,10 +3,7 @@ http://localhost:8080/RecetaAlToqueServicios-war/webresources/usuarios/registro
 {
   "nombre": "nando",
   "email": "f.daniel.godoy@gmail.com",
-  "password": "nando",
-  "valoracion": 0,
-  "token": "b90446990c6baea48bc6bc9c0d862e16",
-  "expira": "Nov 23, 2014 4:18:55 PM"
+  "password": "nando"
 }
 
 
@@ -19,16 +16,16 @@ http://localhost:8080/RecetaAlToqueServicios-war/webresources/usuarios/login
 
 Alta receta
 http://localhost:8080/RecetaAlToqueServicios-war/webresources/recetas/publicar
-{"token":"69f0f3fe55a7575bd043c5af78e124a0", "nombre":"huevos fritos", "ingredientes":["huevo","sal"], "procedimiento":"este es el procedimiento de los huevos fritos"}
+{"token":"2a2a44d132c00b174d54b4c04b3b44b6", "nombre":"huevos fritos", "ingredientes":["huevo","sal"], "procedimiento":"este es el procedimiento de los huevos fritos"}
 {"token":"357985d77d2b50d934130b11d227fa11", "nombre":"Milanesas 2", "ingredientes":["carne","huevo","sal"], "procedimiento":"este es el procedimiento para hacer unas ricas milanesas 2"}
-{"token":"653187c0209dceafce8ec615dcb18a38", "nombre":"Arroz con pollo", "ingredientes":["arroz","pollo","sal"], "procedimiento":"Mezcla todo y dale con fe"}
+{"token":"2a2a44d132c00b174d54b4c04b3b44b6", "nombre":"Arroz con pollo", "ingredientes":["arroz","pollo","sal"], "procedimiento":"Mezcla todo y dale con fe"}
 
 
 
 Valorar receta
 http://localhost:8080/RecetaAlToqueServicios-war/webresources/recetas/valorar
-{"token":"5eab7fa620a1b2e162ebdeded2334ddf", "nombre":"huevos fritos", "valoracion":"5.6"}
-{"token":"b0e6726fe8db632f3f756eb79a615ab4", "nombre":"huevos fritos", "valoracion":"6.6"}
+{"token":"373a136f7e573534aa93b3b67157450a", "nombre":"huevos fritos", "valoracion":"5.6"}
+{"token":"373a136f7e573534aa93b3b67157450a", "nombre":"huevos fritos", "valoracion":"6.6"}
 
 
 
@@ -42,3 +39,8 @@ http://localhost:8080/RecetaAlToqueServicios-war/webresources/recetas/busqueda
 Top busqueda ingredientes
 http://localhost:8080/RecetaAlToqueServicios-war/webresources/recetas/topbusquedas
 {"token":"a150a79134b45add43eb7ffa1c806654"}
+
+
+Top usuarios valorados
+http://localhost:8080/RecetaAlToqueServicios-war/webresources/usuarios/topvalorados
+{"token":"dfba634ffbd07c1c76276b2259a41ce3"}

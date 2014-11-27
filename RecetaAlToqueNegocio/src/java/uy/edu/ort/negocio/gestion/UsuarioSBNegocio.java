@@ -6,7 +6,9 @@
 
 package uy.edu.ort.negocio.gestion;
 
+import java.util.List;
 import javax.ejb.Local;
+import uy.edu.ort.dominio.Busqueda;
 import uy.edu.ort.dominio.Receta;
 import uy.edu.ort.dominio.Usuario;
 
@@ -18,13 +20,15 @@ import uy.edu.ort.dominio.Usuario;
 public interface UsuarioSBNegocio {
     
     
-    public Usuario alta(Usuario usuario);
+    public Usuario alta(Usuario usuario) throws DatosDuplicadosException;
     public void eliminar(Usuario usuario);
     public void modificar(Usuario usuario);
 
     
-    public String login(Usuario usuario);
+    public String login(Usuario usuario) throws DatosInvalidosException;
     public void logout(Usuario usuario);
     public Usuario obtenerPorToken(String token) throws TokenInvalidoException;
+    
+    public List<Usuario> top10Valorados();
     
 }
