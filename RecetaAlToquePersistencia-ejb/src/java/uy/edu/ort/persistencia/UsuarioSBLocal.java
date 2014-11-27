@@ -6,6 +6,7 @@
 
 package uy.edu.ort.persistencia;
 
+import java.util.List;
 import javax.ejb.Local;
 import uy.edu.ort.dominio.Usuario;
 /**
@@ -15,17 +16,28 @@ import uy.edu.ort.dominio.Usuario;
 import uy.edu.ort.entidades.UsuarioEntity;
 @Local
 public interface UsuarioSBLocal {
+<<<<<<< HEAD
     public void alta(Usuario usuario) throws UniqueConstraintException;
+=======
+    
+    public void alta(Usuario usuario);
+>>>>>>> 69fe49c817a406d4c5686962a75f895c031cf730
     public void eliminar(Usuario usuario);
     public void modificar(Usuario usuario);
     
     public UsuarioEntity obtenerPorNombre(String nombre);
+    public Usuario obtenerPorNombreDTO(String nombre);
 
     public Usuario obtenerDTO(UsuarioEntity u);
-    public void expirarToken(Usuario usuario);
+    public Usuario obtenerPorEmailDTO (String email);
     public Usuario obtenerPorEmailYContraenia(String email, String contrasenia);
+    public Usuario obtenerPorToken(String token);
+    
+    public void expirarToken(Usuario usuario);
     public String generarToken(Usuario usuario);
     public void limpiarToken(String email);
-    public Usuario obtenerPorToken(String token);
+    
+    
+    public List<Usuario> top10Valorados();
     
 }

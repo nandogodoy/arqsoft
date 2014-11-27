@@ -8,15 +8,23 @@ package uy.edu.ort.persistencia;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+<<<<<<< HEAD
 import javax.persistence.PersistenceException;
+=======
+import javax.persistence.Query;
+>>>>>>> 69fe49c817a406d4c5686962a75f895c031cf730
 import javax.persistence.TypedQuery;
 import uy.edu.ort.dominio.Receta;
 import uy.edu.ort.dominio.Usuario;
@@ -77,6 +85,8 @@ public class UsuarioSB implements UsuarioSBLocal {
             em.merge(original);
         }
     }
+    
+    
     @Override
     public UsuarioEntity obtenerPorNombre(String nombre){
         TypedQuery<UsuarioEntity> query= em.createNamedQuery("UsuarioEntity.findByNombre", UsuarioEntity.class);
@@ -89,17 +99,39 @@ public class UsuarioSB implements UsuarioSBLocal {
         return null;
     }
     
+    
     @Override
-    public Usuario obtenerDTO(UsuarioEntity u)
-    {
-        Usuario usuario= new Usuario();
-        usuario.setNombre(u.getNombre());
-        usuario.setEmail(u.getEmail());
-        usuario.setPassword(u.getPassword());
-        usuario.setValoracion(u.getValoracion());
-        usuario.setToken(u.getToken());
-        usuario.setExpira(u.getExpira());
-        return usuario;
+    public Usuario obtenerPorNombreDTO (String nombre) {        
+        return this.obtenerDTO(this.obtenerPorNombre(nombre));
+    }
+    
+    @Override
+    public Usuario obtenerPorEmailDTO (String email) {
+	TypedQuery<UsuarioEntity> query= em.createNamedQuery("UsuarioEntity.findByEmail", UsuarioEntity.class);
+        query.setParameter("email", email);
+        try{
+            UsuarioEntity usuario = query.getSingleResult();
+            return this.obtenerDTO(usuario);
+        }
+        catch(Exception e){
+	    return null;
+	}
+        
+    }
+    
+    @Override
+    public Usuario obtenerDTO (UsuarioEntity u) {
+	if (u != null) {
+	    Usuario usuario= new Usuario();
+	    usuario.setNombre(u.getNombre());
+	    usuario.setEmail(u.getEmail());
+	    usuario.setPassword(u.getPassword());
+	    usuario.setValoracion(u.getValoracion());
+	    usuario.setToken(u.getToken());
+	    usuario.setExpira(u.getExpira());
+	    return usuario;
+	}
+	return null;
     }
     
     // Add business logic below. (Right-click in editor and choose
@@ -154,6 +186,8 @@ public class UsuarioSB implements UsuarioSBLocal {
 	    return usu;
 	}
     }
+    
+    
     @Override
     public String generarToken(Usuario usuario) {
         String token = "";
@@ -167,10 +201,26 @@ public class UsuarioSB implements UsuarioSBLocal {
         return token;
     }
 
+    
     @Override
     public void limpiarToken(String email) {
 	// Borro el token del usuario
     }
 
     
+    @Override
+    public List<Usuario> top10Valorados() {
+	ArrayList<Usuario> listaUsuarios = new ArrayList<Usuario>();
+	//Query query = em.createNativeQuery("SELECT u FROM usuarioentity i WHERE 1 ORDER BY u.valoracion DESC LIMIT 10");
+	TypedQuery<UsuarioEntity> query= em.createNamedQuery("UsuarioEntity.topValorados", UsuarioEntity.class);
+        try{
+            List<UsuarioEntity> resultList = query.setMaxResults(10).getResultList();
+            for (UsuarioEntity usuarioEntity : resultList){
+                listaUsuarios.add(this.obtenerDTO(usuarioEntity));
+            }
+            return listaUsuarios;
+        }
+        catch(NoResultException e){}
+	return new ArrayList<Usuario>();
+    }
 }

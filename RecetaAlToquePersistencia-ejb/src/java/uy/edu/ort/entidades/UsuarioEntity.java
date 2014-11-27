@@ -33,8 +33,10 @@ import javax.validation.constraints.NotNull;
     @NamedQuery(name = "UsuarioEntity.findAll", query = "SELECT u FROM UsuarioEntity u"),
     @NamedQuery(name = "UsuarioEntity.findById", query = "SELECT u FROM UsuarioEntity u WHERE u.id = :id"),
     @NamedQuery(name = "UsuarioEntity.findByNombre", query = "SELECT u FROM UsuarioEntity u WHERE u.nombre = :nombre"),
+    @NamedQuery(name = "UsuarioEntity.findByEmail", query = "SELECT u FROM UsuarioEntity u WHERE u.email = :email"),
     @NamedQuery(name = "UsuarioEntity.findByToken", query = "SELECT u FROM UsuarioEntity u WHERE u.token = :token"),
-    @NamedQuery(name = "UsuarioEntity.findByMailPasswd",query = "SELECT u FROM UsuarioEntity u WHERE u.email= :mail and u.password=:passwd")
+    @NamedQuery(name = "UsuarioEntity.findByMailPasswd",query = "SELECT u FROM UsuarioEntity u WHERE u.email= :mail and u.password=:passwd"),
+    @NamedQuery(name = "UsuarioEntity.topValorados",query = "SELECT u FROM UsuarioEntity u ORDER BY u.valoracion DESC")
    })
 
 public class UsuarioEntity implements Serializable {

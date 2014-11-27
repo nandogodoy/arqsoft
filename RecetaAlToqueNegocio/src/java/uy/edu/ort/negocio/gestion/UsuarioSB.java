@@ -10,10 +10,12 @@ import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import uy.edu.ort.dominio.Busqueda;
 import uy.edu.ort.dominio.Receta;
 import uy.edu.ort.dominio.Usuario;
 import uy.edu.ort.persistencia.UniqueConstraintException;
@@ -32,15 +34,30 @@ public class UsuarioSB implements UsuarioSBNegocio {
     
     
     @Override
-    public Usuario alta(Usuario usuario) {
+    public Usuario alta(Usuario usuario) throws DatosDuplicadosException{
 	this.encriptarPassword(usuario);
 	this.generarToken(usuario);
+<<<<<<< HEAD
         try {
             usuarioEJB.alta(usuario);
         } catch (UniqueConstraintException ex) {
             Logger.getLogger(UsuarioSB.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
+=======
+	Usuario usuarioNombre = usuarioEJB.obtenerPorNombreDTO(usuario.getNombre());
+	
+	if (usuarioNombre != null) {
+	    throw new DatosDuplicadosException("Ya existe un usuario con ese nombre");
+	}
+	Usuario usuarioEmail = usuarioEJB.obtenerPorEmailDTO(usuario.getEmail());
+	if (usuarioEmail != null) {
+	    throw new DatosDuplicadosException("Ya existe un usuario con ese email");
+	}
+	usuarioEJB.alta(usuario);
+	this.actualizarExpira(usuario);
+	usuarioEJB.modificar(usuario);
+>>>>>>> 69fe49c817a406d4c5686962a75f895c031cf730
 	return usuario;
     }
 
@@ -55,9 +72,12 @@ public class UsuarioSB implements UsuarioSBNegocio {
     }
 
     @Override
-    public String login(Usuario usuario) {
+    public String login(Usuario usuario) throws DatosInvalidosException {
 	this.encriptarPassword(usuario);
 	usuario = usuarioEJB.obtenerPorEmailYContraenia(usuario.getEmail(), usuario.getPassword());
+	if (usuario == null) {
+	    throw new DatosInvalidosException("No existe usuario para esa combinacion de email y contraseña");
+	}
 	this.generarToken(usuario);
 	this.actualizarExpira(usuario);
 	usuarioEJB.modificar(usuario);
@@ -81,6 +101,14 @@ public class UsuarioSB implements UsuarioSBNegocio {
 	usuarioEJB.modificar(usuario);
     }
 
+    
+    @Override
+    public List<Usuario> top10Valorados() {
+        List<Usuario> lista = usuarioEJB.top10Valorados();
+        return lista;
+    }
+    
+    
     private void generarToken(Usuario usuario) {
 	long now = (new Date()).getTime();
         String generador = "Tu r3c3ta" + usuario.getEmail() + now;

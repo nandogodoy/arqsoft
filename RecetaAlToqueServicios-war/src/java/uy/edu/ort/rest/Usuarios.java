@@ -19,6 +19,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import uy.edu.ort.dominio.Usuario;
+import uy.edu.ort.negocio.gestion.DatosDuplicadosException;
 import uy.edu.ort.negocio.gestion.TokenInvalidoException;
 import uy.edu.ort.negocio.gestion.UsuarioSBNegocio;
 import uy.edu.ort.rest.entidades.Token;
@@ -45,11 +46,17 @@ public class Usuarios {
 	try {
 	    this.validarAltaUsuario(usuario);
 	    usuario = usuarioEJB.alta(usuario);
+<<<<<<< HEAD
             if(usuario!=null)
                 return gson.toJson(usuario);
             else{
                 return gson.toJson("Nombre de usuario o email ya existente");
             }
+=======
+	    return gson.toJson(usuario);
+	} catch (DatosDuplicadosException ex) {
+	    return gson.toJson(ex.getMessage());
+>>>>>>> 69fe49c817a406d4c5686962a75f895c031cf730
 	} catch (DatosInvalidosException ex) {
 	    return gson.toJson(ex.getMessage());
 	}
@@ -65,6 +72,8 @@ public class Usuarios {
 	    this.validarLogin(usuario);
 	    String token = usuarioEJB.login(usuario);
 	    return gson.toJson(token);
+	} catch (uy.edu.ort.negocio.gestion.DatosInvalidosException ex) {
+	    return gson.toJson(ex.getMessage());
 	} catch (DatosInvalidosException ex) {
 	    return gson.toJson(ex.getMessage());
 	}
@@ -90,8 +99,27 @@ public class Usuarios {
     }
     
     
+    @POST
+    @Path("topvalorados")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getTopValorados(Token token) {
+        try {
+	    this.validarToken(token);
+	    usuarioEJB.obtenerPorToken(token.getToken());
+	    return gson.toJson(usuarioEJB.top10Valorados());
+	} catch (DatosInvalidosException ex) {
+	    return gson.toJson(ex.getMessage());
+	} catch (TokenInvalidoException ex) {
+	    return gson.toJson("Acceso no autorizado (token invalido)");
+	}
+    }
     
-
+    
+    
+    /////////////////////////////////////////////////
+    //////// FUNCIONES DE VALIDACION ////////////////
+    /////////////////////////////////////////////////
     
     
     private void validarAltaUsuario (Usuario usuario) throws DatosInvalidosException {
