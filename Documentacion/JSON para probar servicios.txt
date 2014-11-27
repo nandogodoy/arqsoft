@@ -3,10 +3,7 @@ http://localhost:8080/RecetaAlToqueServicios-war/webresources/usuarios/registro
 {
   "nombre": "nando",
   "email": "f.daniel.godoy@gmail.com",
-  "password": "nando",
-  "valoracion": 0,
-  "token": "b90446990c6baea48bc6bc9c0d862e16",
-  "expira": "Nov 23, 2014 4:18:55 PM"
+  "password": "nando"
 }
 
 
@@ -46,4 +43,4 @@ http://localhost:8080/RecetaAlToqueServicios-war/webresources/recetas/topbusqued
 
 Top usuarios valorados
 http://localhost:8080/RecetaAlToqueServicios-war/webresources/usuarios/topvalorados
-{"token":"a150a79134b45add43eb7ffa1c806654"}
+{"token":"dfba634ffbd07c1c76276b2259a41ce3"}

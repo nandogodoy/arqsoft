@@ -19,6 +19,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import uy.edu.ort.dominio.Usuario;
+import uy.edu.ort.negocio.gestion.DatosDuplicadosException;
 import uy.edu.ort.negocio.gestion.TokenInvalidoException;
 import uy.edu.ort.negocio.gestion.UsuarioSBNegocio;
 import uy.edu.ort.rest.entidades.Token;
@@ -47,6 +48,8 @@ public class Usuarios {
 	    this.validarAltaUsuario(usuario);
 	    usuario = usuarioEJB.alta(usuario);
 	    return gson.toJson(usuario);
+	} catch (DatosDuplicadosException ex) {
+	    return gson.toJson(ex.getMessage());
 	} catch (DatosInvalidosException ex) {
 	    return gson.toJson(ex.getMessage());
 	}
@@ -62,6 +65,8 @@ public class Usuarios {
 	    this.validarLogin(usuario);
 	    String token = usuarioEJB.login(usuario);
 	    return gson.toJson(token);
+	} catch (uy.edu.ort.negocio.gestion.DatosInvalidosException ex) {
+	    return gson.toJson(ex.getMessage());
 	} catch (DatosInvalidosException ex) {
 	    return gson.toJson(ex.getMessage());
 	}

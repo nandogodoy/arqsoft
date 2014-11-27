@@ -33,10 +33,21 @@ public class UsuarioSB implements UsuarioSBNegocio {
     
     
     @Override
-    public Usuario alta(Usuario usuario) {
+    public Usuario alta(Usuario usuario) throws DatosDuplicadosException{
 	this.encriptarPassword(usuario);
 	this.generarToken(usuario);
+	Usuario usuarioNombre = usuarioEJB.obtenerPorNombreDTO(usuario.getNombre());
+	
+	if (usuarioNombre != null) {
+	    throw new DatosDuplicadosException("Ya existe un usuario con ese nombre");
+	}
+	Usuario usuarioEmail = usuarioEJB.obtenerPorEmailDTO(usuario.getEmail());
+	if (usuarioEmail != null) {
+	    throw new DatosDuplicadosException("Ya existe un usuario con ese email");
+	}
 	usuarioEJB.alta(usuario);
+	this.actualizarExpira(usuario);
+	usuarioEJB.modificar(usuario);
 	return usuario;
     }
 
@@ -51,9 +62,12 @@ public class UsuarioSB implements UsuarioSBNegocio {
     }
 
     @Override
-    public String login(Usuario usuario) {
+    public String login(Usuario usuario) throws DatosInvalidosException {
 	this.encriptarPassword(usuario);
 	usuario = usuarioEJB.obtenerPorEmailYContraenia(usuario.getEmail(), usuario.getPassword());
+	if (usuario == null) {
+	    throw new DatosInvalidosException("No existe usuario para esa combinacion de email y contraseña");
+	}
 	this.generarToken(usuario);
 	this.actualizarExpira(usuario);
 	usuarioEJB.modificar(usuario);

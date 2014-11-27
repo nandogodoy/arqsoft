@@ -74,6 +74,8 @@ public class UsuarioSB implements UsuarioSBLocal {
             em.merge(original);
         }
     }
+    
+    
     @Override
     public UsuarioEntity obtenerPorNombre(String nombre){
         TypedQuery<UsuarioEntity> query= em.createNamedQuery("UsuarioEntity.findByNombre", UsuarioEntity.class);
@@ -86,17 +88,39 @@ public class UsuarioSB implements UsuarioSBLocal {
         return null;
     }
     
+    
     @Override
-    public Usuario obtenerDTO(UsuarioEntity u)
-    {
-        Usuario usuario= new Usuario();
-        usuario.setNombre(u.getNombre());
-        usuario.setEmail(u.getEmail());
-        usuario.setPassword(u.getPassword());
-        usuario.setValoracion(u.getValoracion());
-        usuario.setToken(u.getToken());
-        usuario.setExpira(u.getExpira());
-        return usuario;
+    public Usuario obtenerPorNombreDTO (String nombre) {        
+        return this.obtenerDTO(this.obtenerPorNombre(nombre));
+    }
+    
+    @Override
+    public Usuario obtenerPorEmailDTO (String email) {
+	TypedQuery<UsuarioEntity> query= em.createNamedQuery("UsuarioEntity.findByEmail", UsuarioEntity.class);
+        query.setParameter("email", email);
+        try{
+            UsuarioEntity usuario = query.getSingleResult();
+            return this.obtenerDTO(usuario);
+        }
+        catch(Exception e){
+	    return null;
+	}
+        
+    }
+    
+    @Override
+    public Usuario obtenerDTO (UsuarioEntity u) {
+	if (u != null) {
+	    Usuario usuario= new Usuario();
+	    usuario.setNombre(u.getNombre());
+	    usuario.setEmail(u.getEmail());
+	    usuario.setPassword(u.getPassword());
+	    usuario.setValoracion(u.getValoracion());
+	    usuario.setToken(u.getToken());
+	    usuario.setExpira(u.getExpira());
+	    return usuario;
+	}
+	return null;
     }
     
     // Add business logic below. (Right-click in editor and choose
@@ -151,6 +175,8 @@ public class UsuarioSB implements UsuarioSBLocal {
 	    return usu;
 	}
     }
+    
+    
     @Override
     public String generarToken(Usuario usuario) {
         String token = "";
@@ -164,11 +190,13 @@ public class UsuarioSB implements UsuarioSBLocal {
         return token;
     }
 
+    
     @Override
     public void limpiarToken(String email) {
 	// Borro el token del usuario
     }
 
+    
     @Override
     public List<Usuario> top10Valorados() {
 	ArrayList<Usuario> listaUsuarios = new ArrayList<Usuario>();
