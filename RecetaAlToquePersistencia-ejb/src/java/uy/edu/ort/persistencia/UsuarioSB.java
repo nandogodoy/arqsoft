@@ -124,6 +124,7 @@ public class UsuarioSB implements UsuarioSBLocal {
 	    usuario.setEmail(u.getEmail());
 	    usuario.setPassword(u.getPassword());
 	    usuario.setValoracion(u.getValoracion());
+            usuario.setCantValoraciones(u.getCantValoraciones());
 	    usuario.setToken(u.getToken());
 	    usuario.setExpira(u.getExpira());
 	    return usuario;

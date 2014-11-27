@@ -105,6 +105,7 @@ public class RecetaSB implements RecetaSBLocal {
             receta.setProcedimiento(entidad.getProcedimiento());
             receta.setIngredientes(ingredienteSB.obtenerListaDTO(entidad.getIngredientes()));
             receta.setValoracion(entidad.getValoracion());
+            receta.setCantValoraciones(entidad.getCantValoraciones());
             return receta;
         }
         return null;
