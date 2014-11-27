@@ -114,7 +114,7 @@ public class IngredienteSB implements IngredienteSBLocal {
         
         Query query = em.createNativeQuery("select count(1) as cantidad,i.* from ingredienteentity i, busquedas_ingredientes b where i.ID=b.ingrediente_id group by ingrediente_id order by count(1) desc");
         try{
-            List<Object[]> resultList = query.getResultList();
+            List<Object[]> resultList = query.setMaxResults(10).getResultList();
             Map<String, Long> resultMap = new HashMap<String, Long>(resultList.size());
             for (Object[] result : resultList){
                 //Ingrediente ing= new Ingrediente((String)result[2]);
