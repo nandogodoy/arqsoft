@@ -56,7 +56,7 @@ public class RecetaSB implements RecetaSBLocal {
             }
             catch (PersistenceException e)
             {
-                throw new UniqueConstraintException("Nombre de usuario o email ya utilizados");
+                throw new UniqueConstraintException("Nombre de receta ya utilizado");
             }
         }
     }
